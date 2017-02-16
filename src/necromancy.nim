@@ -3,9 +3,11 @@
 # =======
 
 import os
-import logging
 import parseopt2
 
+import "logger.nim"
+import "termbox.nim"
+import "bindings.nim"
 import "preferences.nim"
 
 # =====
@@ -64,19 +66,19 @@ for kind, key, value in parseopt2.getopt():
   else:
     discard
 
-var logging_level = Level.lvlWarn
-if enable_verbose_logging:
-  logging_level = Level.lvlInfo
-if enable_debug_logging:
-  logging_level = Level.lvlDebug
-let application_logger = logging.newConsoleLogger(logging_level)
-logging.addHandler(application_logger)
+initiateLogger(enable_verbose_logging, enable_debug_logging)
 
-logging.debug("Parsing the passed commands")
-# case command
-# of Subcommand.Version:
-  # versionInfo()
-# of Subcommand.Help:
-  # usage()
-# else:
-  # let config = loadPreferences(configuration_path)
+Logger(Debug, "Parsing the passed commands...")
+case command
+of Subcommand.Version:
+  versionInfo()
+of Subcommand.Help:
+  usage()
+else:
+  let config = loadPreferences(configuration_path)
+  discard tb_init()
+  var should_continue = true
+  while should_continue:
+    should_continue = processInput()
+  tb_set_cursor(0,0)
+  tb_shutdown()

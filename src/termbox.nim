@@ -5,83 +5,83 @@
 ## 
 
 const
-  TB_KEY_F1* = (0x0000FFFF - 0)
-  TB_KEY_F2* = (0x0000FFFF - 1)
-  TB_KEY_F3* = (0x0000FFFF - 2)
-  TB_KEY_F4* = (0x0000FFFF - 3)
-  TB_KEY_F5* = (0x0000FFFF - 4)
-  TB_KEY_F6* = (0x0000FFFF - 5)
-  TB_KEY_F7* = (0x0000FFFF - 6)
-  TB_KEY_F8* = (0x0000FFFF - 7)
-  TB_KEY_F9* = (0x0000FFFF - 8)
-  TB_KEY_F10* = (0x0000FFFF - 9)
-  TB_KEY_F11* = (0x0000FFFF - 10)
-  TB_KEY_F12* = (0x0000FFFF - 11)
-  TB_KEY_INSERT* = (0x0000FFFF - 12)
-  TB_KEY_DELETE* = (0x0000FFFF - 13)
-  TB_KEY_HOME* = (0x0000FFFF - 14)
-  TB_KEY_END* = (0x0000FFFF - 15)
-  TB_KEY_PGUP* = (0x0000FFFF - 16)
-  TB_KEY_PGDN* = (0x0000FFFF - 17)
-  TB_KEY_ARROW_UP* = (0x0000FFFF - 18)
-  TB_KEY_ARROW_DOWN* = (0x0000FFFF - 19)
-  TB_KEY_ARROW_LEFT* = (0x0000FFFF - 20)
-  TB_KEY_ARROW_RIGHT* = (0x0000FFFF - 21)
-  TB_KEY_MOUSE_LEFT* = (0x0000FFFF - 22)
-  TB_KEY_MOUSE_RIGHT* = (0x0000FFFF - 23)
-  TB_KEY_MOUSE_MIDDLE* = (0x0000FFFF - 24)
-  TB_KEY_MOUSE_RELEASE* = (0x0000FFFF - 25)
-  TB_KEY_MOUSE_WHEEL_UP* = (0x0000FFFF - 26)
-  TB_KEY_MOUSE_WHEEL_DOWN* = (0x0000FFFF - 27)
+  TB_KEY_F1*: uint16 = (0x0000FFFF - 0)
+  TB_KEY_F2*: uint16 = (0x0000FFFF - 1)
+  TB_KEY_F3*: uint16 = (0x0000FFFF - 2)
+  TB_KEY_F4*: uint16 = (0x0000FFFF - 3)
+  TB_KEY_F5*: uint16 = (0x0000FFFF - 4)
+  TB_KEY_F6*: uint16 = (0x0000FFFF - 5)
+  TB_KEY_F7*: uint16 = (0x0000FFFF - 6)
+  TB_KEY_F8*: uint16 = (0x0000FFFF - 7)
+  TB_KEY_F9*: uint16 = (0x0000FFFF - 8)
+  TB_KEY_F10*: uint16 = (0x0000FFFF - 9)
+  TB_KEY_F11*: uint16 = (0x0000FFFF - 10)
+  TB_KEY_F12*: uint16 = (0x0000FFFF - 11)
+  TB_KEY_INSERT*: uint16 = (0x0000FFFF - 12)
+  TB_KEY_DELETE*: uint16 = (0x0000FFFF - 13)
+  TB_KEY_HOME*: uint16 = (0x0000FFFF - 14)
+  TB_KEY_END*: uint16 = (0x0000FFFF - 15)
+  TB_KEY_PGUP*: uint16 = (0x0000FFFF - 16)
+  TB_KEY_PGDN*: uint16 = (0x0000FFFF - 17)
+  TB_KEY_ARROW_UP*: uint16 = (0x0000FFFF - 18)
+  TB_KEY_ARROW_DOWN*: uint16 = (0x0000FFFF - 19)
+  TB_KEY_ARROW_LEFT*: uint16 = (0x0000FFFF - 20)
+  TB_KEY_ARROW_RIGHT*: uint16 = (0x0000FFFF - 21)
+  TB_KEY_MOUSE_LEFT*: uint16 = (0x0000FFFF - 22)
+  TB_KEY_MOUSE_RIGHT*: uint16 = (0x0000FFFF - 23)
+  TB_KEY_MOUSE_MIDDLE*: uint16 = (0x0000FFFF - 24)
+  TB_KEY_MOUSE_RELEASE*: uint16 = (0x0000FFFF - 25)
+  TB_KEY_MOUSE_WHEEL_UP*: uint16 = (0x0000FFFF - 26)
+  TB_KEY_MOUSE_WHEEL_DOWN*: uint16 = (0x0000FFFF - 27)
 
 ##  These are all ASCII code points below SPACE character and a BACKSPACE key.
 
 const
-  TB_KEY_CTRL_TILDE* = 0x00000000
-  TB_KEY_CTRL_2* = 0x00000000
-  TB_KEY_CTRL_A* = 0x00000001
-  TB_KEY_CTRL_B* = 0x00000002
-  TB_KEY_CTRL_C* = 0x00000003
-  TB_KEY_CTRL_D* = 0x00000004
-  TB_KEY_CTRL_E* = 0x00000005
-  TB_KEY_CTRL_F* = 0x00000006
-  TB_KEY_CTRL_G* = 0x00000007
-  TB_KEY_BACKSPACE* = 0x00000008
-  TB_KEY_CTRL_H* = 0x00000008
-  TB_KEY_TAB* = 0x00000009
-  TB_KEY_CTRL_I* = 0x00000009
-  TB_KEY_CTRL_J* = 0x0000000A
-  TB_KEY_CTRL_K* = 0x0000000B
-  TB_KEY_CTRL_L* = 0x0000000C
-  TB_KEY_ENTER* = 0x0000000D
-  TB_KEY_CTRL_M* = 0x0000000D
-  TB_KEY_CTRL_N* = 0x0000000E
-  TB_KEY_CTRL_O* = 0x0000000F
-  TB_KEY_CTRL_P* = 0x00000010
-  TB_KEY_CTRL_Q* = 0x00000011
-  TB_KEY_CTRL_R* = 0x00000012
-  TB_KEY_CTRL_S* = 0x00000013
-  TB_KEY_CTRL_T* = 0x00000014
-  TB_KEY_CTRL_U* = 0x00000015
-  TB_KEY_CTRL_V* = 0x00000016
-  TB_KEY_CTRL_W* = 0x00000017
-  TB_KEY_CTRL_X* = 0x00000018
-  TB_KEY_CTRL_Y* = 0x00000019
-  TB_KEY_CTRL_Z* = 0x0000001A
-  TB_KEY_ESC* = 0x0000001B
-  TB_KEY_CTRL_LSQ_BRACKET* = 0x0000001B
-  TB_KEY_CTRL_3* = 0x0000001B
-  TB_KEY_CTRL_4* = 0x0000001C
-  TB_KEY_CTRL_BACKSLASH* = 0x0000001C
-  TB_KEY_CTRL_5* = 0x0000001D
-  TB_KEY_CTRL_RSQ_BRACKET* = 0x0000001D
-  TB_KEY_CTRL_6* = 0x0000001E
-  TB_KEY_CTRL_7* = 0x0000001F
-  TB_KEY_CTRL_SLASH* = 0x0000001F
-  TB_KEY_CTRL_UNDERSCORE* = 0x0000001F
-  TB_KEY_SPACE* = 0x00000020
-  TB_KEY_BACKSPACE2* = 0x0000007F
-  TB_KEY_CTRL_8* = 0x0000007F
+  TB_KEY_CTRL_TILDE*: uint16 = 0x00000000
+  TB_KEY_CTRL_2*: uint16 = 0x00000000
+  TB_KEY_CTRL_A*: uint16 = 0x00000001
+  TB_KEY_CTRL_B*: uint16 = 0x00000002
+  TB_KEY_CTRL_C*: uint16 = 0x00000003
+  TB_KEY_CTRL_D*: uint16 = 0x00000004
+  TB_KEY_CTRL_E*: uint16 = 0x00000005
+  TB_KEY_CTRL_F*: uint16 = 0x00000006
+  TB_KEY_CTRL_G*: uint16 = 0x00000007
+  TB_KEY_BACKSPACE*: uint16 = 0x00000008
+  TB_KEY_CTRL_H*: uint16 = 0x00000008
+  TB_KEY_TAB*: uint16 = 0x00000009
+  TB_KEY_CTRL_I*: uint16 = 0x00000009
+  TB_KEY_CTRL_J*: uint16 = 0x0000000A
+  TB_KEY_CTRL_K*: uint16 = 0x0000000B
+  TB_KEY_CTRL_L*: uint16 = 0x0000000C
+  TB_KEY_ENTER*: uint16 = 0x0000000D
+  TB_KEY_CTRL_M*: uint16 = 0x0000000D
+  TB_KEY_CTRL_N*: uint16 = 0x0000000E
+  TB_KEY_CTRL_O*: uint16 = 0x0000000F
+  TB_KEY_CTRL_P*: uint16 = 0x00000010
+  TB_KEY_CTRL_Q*: uint16 = 0x00000011
+  TB_KEY_CTRL_R*: uint16 = 0x00000012
+  TB_KEY_CTRL_S*: uint16 = 0x00000013
+  TB_KEY_CTRL_T*: uint16 = 0x00000014
+  TB_KEY_CTRL_U*: uint16 = 0x00000015
+  TB_KEY_CTRL_V*: uint16 = 0x00000016
+  TB_KEY_CTRL_W*: uint16 = 0x00000017
+  TB_KEY_CTRL_X*: uint16 = 0x00000018
+  TB_KEY_CTRL_Y*: uint16 = 0x00000019
+  TB_KEY_CTRL_Z*: uint16 = 0x0000001A
+  TB_KEY_ESC*: uint16 = 0x0000001B
+  TB_KEY_CTRL_LSQ_BRACKET*: uint16 = 0x0000001B
+  TB_KEY_CTRL_3*: uint16 = 0x0000001B
+  TB_KEY_CTRL_4*: uint16 = 0x0000001C
+  TB_KEY_CTRL_BACKSLASH*: uint16 = 0x0000001C
+  TB_KEY_CTRL_5*: uint16 = 0x0000001D
+  TB_KEY_CTRL_RSQ_BRACKET*: uint16 = 0x0000001D
+  TB_KEY_CTRL_6*: uint16 = 0x0000001E
+  TB_KEY_CTRL_7*: uint16 = 0x0000001F
+  TB_KEY_CTRL_SLASH*: uint16 = 0x0000001F
+  TB_KEY_CTRL_UNDERSCORE*: uint16 = 0x0000001F
+  TB_KEY_SPACE*: uint16 = 0x00000020
+  TB_KEY_BACKSPACE2*: uint16 = 0x0000007F
+  TB_KEY_CTRL_8*: uint16 = 0x0000007F
 
 ##  These are non-existing ones.
 ## 
@@ -95,8 +95,8 @@ const
 ## 
 
 const
-  TB_MOD_ALT* = 0x00000001
-  TB_MOD_MOTION* = 0x00000002
+  TB_MOD_ALT*: uint8 = 0x00000001
+  TB_MOD_MOTION*: uint8 = 0x00000002
 
 ##  Colors (see struct tb_cell's fg and bg fields).
 
@@ -130,10 +130,10 @@ const
 ## 
 
 type
-  tb_cell* {.importc: "tb_cell", header: "termbox.h".} = object
-    ch* {.importc: "ch".}: uint32
-    fg* {.importc: "fg".}: uint16
-    bg* {.importc: "bg".}: uint16
+  tb_cell* {.importc: "struct tb_cell", header: "termbox.h".} = object
+    ch*: uint32
+    fg*: uint16
+    bg*: uint16
 
 
 const
@@ -149,16 +149,15 @@ const
 ##  one of them can be non-zero at a time.
 ## 
 
-type
-  tb_event* {.importc: "tb_event", header: "termbox.h".} = object
-    `type`* {.importc: "type".}: uint8
-    `mod`* {.importc: "mod".}: uint8 ##  modifiers to either 'key' or 'ch' below
-    key* {.importc: "key".}: uint16 ##  one of the TB_KEY_* constants
-    ch* {.importc: "ch".}: uint32 ##  unicode character
-    w* {.importc: "w".}: int32
-    h* {.importc: "h".}: int32
-    x* {.importc: "x".}: int32
-    y* {.importc: "y".}: int32
+type tbevent* {.importc: "struct tb_event", header: "termbox.h".} = object
+  `type`*: uint8
+  `mod`*: uint8 ##  modifiers to either 'key' or 'ch' below
+  key*: uint16 ##  one of the TB_KEY_* constants
+  ch*: uint32 ##  unicode character
+  w*: int32
+  h*: int32
+  x*: int32
+  y*: int32
 
 
 ##  Error codes returned by tb_init(). All of them are self-explanatory, except
