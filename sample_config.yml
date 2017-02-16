@@ -1,0 +1,3 @@
+---
+keybindings:
+ - {bind: "UP", action: "navigate-up"}
