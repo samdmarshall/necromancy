@@ -19,7 +19,7 @@ proc loadPreferences*(path: string): Configuration =
   if os.fileExists(path):
     let config_file_descriptor = streams.newFileStream(path)
     yaml.serialization.load(config_file_descriptor, config)
-    config_file_descriptor.close()
+    streams.close(config_file_descriptor)
   else:
     Logger(Fatal, "Unable to load preference data, aborting!")
   result = config
