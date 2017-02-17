@@ -1,5 +1,5 @@
 
-colorMode: color
+colorMode: simple
 
 keys:
  - {key: "<up>", action: "navigate-up"}

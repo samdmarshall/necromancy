@@ -1,5 +1,14 @@
+# =======
+# Imports 
+# =======
+
+import os
 import logging
 import strutils
+
+# =====
+# Types
+# =====
 
 type LogCode* = enum
     Info,
@@ -7,6 +16,10 @@ type LogCode* = enum
     Warn,
     Error,
     Fatal
+
+# =========
+# Templates
+# =========
 
 template Logger*(code: LogCode, formatString: string): void =
   let pos = instantiationInfo()
@@ -24,11 +37,15 @@ template Logger*(code: LogCode, formatString: string): void =
     logging.fatal(log_string)
     quit(QuitFailure)
 
-proc initiateLogger*(useVerbose: bool, useDebug: bool): void = 
+# =========
+# Functions
+# =========
+
+proc initiateLogger*(log_dir: string, enableTrace: bool): void = 
   var logging_level = Level.lvlWarn
-  if useVerbose:
-    logging_level = Level.lvlInfo
-  if useDebug:
+  if enableTrace:
     logging_level = Level.lvlDebug
-  let application_logger = logging.newConsoleLogger(logging_level, "[$levelname] ")
-  logging.addHandler(application_logger)
+  if os.existsOrCreateDir(log_dir):
+    let log_file_path = os.joinPath(log_dir, "trace.log")
+    let application_logger = logging.newRollingFileLogger(fileName = log_file_path, levelThreshold = logging_level, fmtStr = "[$levelname] ")
+    logging.addHandler(application_logger)

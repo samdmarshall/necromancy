@@ -101,15 +101,15 @@ const
 ##  Colors (see struct tb_cell's fg and bg fields).
 
 const
-  TB_DEFAULT* = 0x00000000
-  TB_BLACK* = 0x00000001
-  TB_RED* = 0x00000002
-  TB_GREEN* = 0x00000003
-  TB_YELLOW* = 0x00000004
-  TB_BLUE* = 0x00000005
-  TB_MAGENTA* = 0x00000006
-  TB_CYAN* = 0x00000007
-  TB_WHITE* = 0x00000008
+  TB_DEFAULT*: uint16 = 0x00000000
+  TB_BLACK*: uint16 = 0x00000001
+  TB_RED*: uint16 = 0x00000002
+  TB_GREEN*: uint16 = 0x00000003
+  TB_YELLOW*: uint16 = 0x00000004
+  TB_BLUE*: uint16 = 0x00000005
+  TB_MAGENTA*: uint16 = 0x00000006
+  TB_CYAN*: uint16 = 0x00000007
+  TB_WHITE*: uint16 = 0x00000008
 
 ##  Attributes, it is possible to use multiple attributes by combining them
 ##  using bitwise OR ('|'). Although, colors cannot be combined. But you can
