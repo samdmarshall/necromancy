@@ -32,10 +32,19 @@ proc processCommand*(command: string): void =
     discard
   of Command_GoOut:
     discard
-  Command_Relist = "relist"
-  Command_Touch = "touch"
-  Command_Make = "make"
-  Command_Remove = "remove"
-  Command_Move = "move"
-  Command_Copy = "copy"
-  Command_Find = "find"
+  of Command_Relist:
+    discard
+  of Command_Touch:
+    discard
+  of Command_Make:
+    discard
+  of Command_Remove:
+    discard
+  of Command_Move:
+    discard
+  of Command_Copy:
+    discard
+  of Command_Find:
+    discard
+  else:
+    discard
