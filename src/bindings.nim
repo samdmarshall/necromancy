@@ -2,37 +2,18 @@
 # Imports
 # =======
 
+import posix
 import tables
+import sequtils
 
+import "types.nim"
 import "logger.nim"
+import "actions.nim"
 import "termbox.nim"
-
-# =====
-# Types
-# =====
-
-type UserKeyBinding* = object
-  key*: string
-  action*: string
-
-type InternalBinding = object
-  keyName: string
-  tbMap: int
 
 # =========
 # Constants
 # =========
-
-## Action names
-const
-  Action_Help = "help"
-  Action_Quit = "quit"
-  Action_Up = "navigate-up"
-  Action_Down = "navigate-down"
-  Action_Left = "navigate-left"
-  Action_Right = "navigate-right"
-
-let Actions = @[Action_Help, Action_Quit, Action_Up, Action_Down, Action_Left, Action_Right]
 
 ## Key names
 const
@@ -52,6 +33,7 @@ const
   Key_Space = "<space>"
 
   Key_CtrlQ = "<ctrl-q>"
+  Key_CtrlZ = "<ctrl-z>"
 
 # =======
 # Globals
@@ -74,6 +56,9 @@ let BindingMap: Table[uint16, string] = {
   TB_KEY_SPACE: Key_Space,
   
   TB_KEY_CTRL_Q: Key_CtrlQ,
+  
+  TB_KEY_CTRL_Z: Key_CtrlZ,
+  
 }.toTable
 
 let AsciiBindingMap: Table[uint32, string] = {
@@ -176,19 +161,30 @@ let AsciiBindingMap: Table[uint32, string] = {
 # Functions
 # =========
 
-proc initializeBindings*(userMap: seq[UserKeyBinding]): void = 
-  for binding in userMap:
-    if binding.action in Actions:
-      Logger(Info, "Mapping key '" & binding.key & "' to action '" & binding.action & "'.")
-    else:
-      Logger(Error, "Unrecognized key '" & binding.action & "' in key map!")
-      
-proc processInput*(): bool = 
+
+proc translateBinding(input: tb_event, keyMapping: seq[UserKeyBinding]): string = 
+  case input.`type`
+  of TB_EVENT_KEY:
+    var mapped_key = ""
+    if input.ch in AsciiBindingMap:
+      mapped_key = AsciiBindingMap[input.ch]
+    elif input.key in BindingMap:
+      mapped_key = BindingMap[input.key]
+    if mapped_key != "":
+      let found_bindings = sequtils.filterIt(keyMapping, it.key == mapped_key)
+      if found_bindings.len > 0:
+        return found_bindings[0].action
+  of TB_EVENT_RESIZE:
+    return "reload"
+  else:
+    discard
+  return ""
+  
+proc processInput*(keyMapping: seq[UserKeyBinding]): bool = 
   var event: tb_event
   let event_result = tb_poll_event(addr event)
-  if event.key != 0:
-    echo(event.key)
-    result = not (BindingMap[event.key] == Key_CtrlQ)
+  let action_string = translateBinding(event, keyMapping)
+  if action_string != "":
+    result = handleAction(action_string)
   else:
-    echo(AsciiBindingMap[event.ch])
     result = true

@@ -6,15 +6,8 @@ import os
 import yaml
 import streams
 
-import "bindings.nim"
+import "types.nim"
 import "logger.nim"
-
-# =====
-# Types
-# =====
-
-type Configuration* = object
-  keys*: seq[UserKeyBinding]
 
 # =========
 # Functions
@@ -27,6 +20,6 @@ proc loadPreferences*(path: string): Configuration =
     let config_file_descriptor = streams.newFileStream(path)
     yaml.serialization.load(config_file_descriptor, config)
     config_file_descriptor.close()
-  
-  initializeBindings(config.keys)
+  else:
+    Logger(Fatal, "Unable to load preference data, aborting!")
   result = config

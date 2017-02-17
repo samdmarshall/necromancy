@@ -1,7 +1,11 @@
----
+
+colorMode: simple
+
 keys:
  - {key: "<up>", action: "navigate-up"}
  - {key: "<down>", action: "navigate-down"}
  - {key: "<left>", action: "navigate-left"}
  - {key: "<right>", action: "navigate-right"}
  - {key: "<ctrl-q>", action: "quit"}
+ - {key: "<ctrl-z>", action: "suspend"}
+ - {key: ":", action: "command-prompt"}

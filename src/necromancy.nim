@@ -5,8 +5,8 @@
 import os
 import parseopt2
 
+import "view.nim"
 import "logger.nim"
-import "termbox.nim"
 import "bindings.nim"
 import "preferences.nim"
 
@@ -76,9 +76,6 @@ of Subcommand.Help:
   usage()
 else:
   let config = loadPreferences(configuration_path)
-  discard tb_init()
-  var should_continue = true
-  while should_continue:
-    should_continue = processInput()
-  tb_set_cursor(0,0)
-  tb_shutdown()
+  initializeDisplay(config.colorMode)
+  while processInput(config.keys):
+    discard

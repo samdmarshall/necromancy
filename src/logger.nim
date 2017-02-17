@@ -22,6 +22,7 @@ template Logger*(code: LogCode, formatString: string): void =
     logging.error(log_string)
   of LogCode.Fatal:
     logging.fatal(log_string)
+    quit(QuitFailure)
 
 proc initiateLogger*(useVerbose: bool, useDebug: bool): void = 
   var logging_level = Level.lvlWarn
