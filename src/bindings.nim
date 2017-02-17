@@ -174,6 +174,7 @@ proc translateBinding(input: tb_event, keyMapping: seq[UserKeyBinding]): string 
       let found_bindings = sequtils.filterIt(keyMapping, it.key == mapped_key)
       if found_bindings.len > 0:
         return found_bindings[0].action
+    Logger(Notice, "Got key event, but couldn't match it to any binding, ignoring")
   of TB_EVENT_RESIZE:
     return "reload"
   else:

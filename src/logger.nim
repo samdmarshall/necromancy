@@ -11,6 +11,7 @@ import strutils
 # =====
 
 type LogCode* = enum
+    Notice,
     Info,
     Debug,
     Warn,
@@ -25,6 +26,8 @@ template Logger*(code: LogCode, formatString: string): void =
   let pos = instantiationInfo()
   let log_string = "[$1:$2] $3" % [pos.filename, $pos.line, formatString]
   case code
+  of LogCode.Notice:
+    logging.notice(log_string)
   of LogCode.Info:
     logging.info(log_string)
   of LogCode.Debug:
