@@ -3,7 +3,6 @@
 # =====
 
 type ColorMode* = enum
-  default,
   simple,
   color,
   grayscale
