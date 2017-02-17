@@ -39,7 +39,11 @@ proc versionInfo(): void =
 # ===========================================
 
 var command = Subcommand.None
-var configuration_path = os.expandTilde(os.getEnv("NECROMANCY_CONFIG"))
+var configuration_path: string
+if os.existsEnv("NECROMANCY_CONFIG"):
+  configuration_path = os.expandTilde(os.getEnv("NECROMANCY_CONFIG"))
+else:
+  configuration_path = os.expandTilde("~/.config/necromancy/config.yml")
 var working_directory = os.getCurrentDir()
 var enable_verbose_logging = false
 var enable_debug_logging = false
