@@ -5,7 +5,6 @@
 import tables
 import sequtils
 
-
 import "termbox.nim"
 
 # =====

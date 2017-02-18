@@ -55,7 +55,7 @@ proc redraw*(window: Window): void =
   drawTopBar(window)
   let active_views = sequtils.filter(window.views, proc(x: View): bool = (x.active))
   for display_view in active_views:
-    view.draw(display_view)
+    view.draw(display_view, window.colorTheme)
   drawBottomBar(window)
   tb_present()
 

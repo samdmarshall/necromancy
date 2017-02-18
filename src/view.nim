@@ -2,6 +2,7 @@
 # Imports
 # =======
 
+import "theme.nim"
 import "drawing.nim"
 import "termbox.nim"
 import "fileitem.nim"
@@ -28,7 +29,7 @@ proc drawDirectoryPath(view: View): void =
     drawing.cell(column, row, $chr, TB_DEFAULT, TB_DEFAULT)
     inc(index)
 
-proc drawItems(view: View): void =
+proc drawItems(view: View, theme: ColorTheme): void =
   let col_offset: cint = 4
   var row: cint = 3
   for item in view.items:
@@ -47,6 +48,6 @@ proc drawItems(view: View): void =
 proc createView*(path: string): View =
   return View(cwd: path, items: fileitem.populate(path), active: false)
 
-proc draw*(view: View): void = 
+proc draw*(view: View, theme: ColorTheme): void = 
   drawDirectoryPath(view)
-  drawItems(view)
+  drawItems(view, theme)
