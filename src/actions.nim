@@ -25,6 +25,21 @@ const
   Action_NextTab = "next-tab"
   Action_PrevTab = "prev-tab"
 
+let KnownActions* = @[
+  Action_Help,
+  Action_Suspend,
+  Action_Quit,
+  Action_Up,
+  Action_Down,
+  Action_Left,
+  Action_Right,
+  Action_CommandPrompt,
+  Action_CommandPin,
+  Action_CommandPop,
+  Action_NextTab,
+  Action_PrevTab,
+]
+
 # =================
 # Private Functions
 # =================
@@ -39,10 +54,9 @@ proc handleAction*(action: string): bool =
   of Action_Help:
     discard
   of Action_Suspend:
-    view.suspendDisplay()
+    return processCommand(Command_Suspend, @[])
   of Action_Quit:
-    view.shutdownDisplay()
-    return false
+    return processCommand(Command_Quit, @[])
   of Action_Up:
     discard
   of Action_Down:

@@ -1,38 +1,45 @@
+# =======
+# Imports
+# =======
+
+import "view.nim"
+
 # =========
 # Constants
 # =========
 
 const 
-  Command_Help = "help"
-  Command_Quit = "quit"
-  Command_Suspend = "suspend"
-  Command_GoIn = "in"
-  Command_GoOut = "out"
-  Command_Relist = "relist"
-  Command_Touch = "touch"
-  Command_Make = "make"
-  Command_Remove = "remove"
-  Command_Move = "move"
-  Command_Copy = "copy"
-  Command_Find = "find"
+  Command_Help* = "help"
+  Command_Quit* = "quit"
+  Command_Suspend* = "suspend"
+  Command_GoIn* = "in"
+  Command_GoOut* = "out"
+  Command_List* = "list"
+  Command_Touch* = "touch"
+  Command_Make* = "make"
+  Command_Remove* = "remove"
+  Command_Move* = "move"
+  Command_Copy* = "copy"
+  Command_Find* = "find"
 
 # =========
 # Functions
 # =========
 
-proc processCommand*(command: string): void =
+proc processCommand*(command: string, args: seq[string]): bool =
   case command
   of Command_Help:
     discard
   of Command_Quit:
-    discard
+    view.shutdownDisplay()
+    return false
   of Command_Suspend:
-    discard
+    view.suspendDisplay()
   of Command_GoIn:
     discard
   of Command_GoOut:
     discard
-  of Command_Relist:
+  of Command_List:
     discard
   of Command_Touch:
     discard
@@ -47,4 +54,5 @@ proc processCommand*(command: string): void =
   of Command_Find:
     discard
   else:
-    discard
+    return false
+  return true

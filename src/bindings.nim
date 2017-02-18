@@ -30,10 +30,54 @@ const
   Key_F11 = "<F11>"
   Key_F12 = "<F12>"
 
+  Key_Tilde = "<~>"
+  Key_Backspace = "<backspace>"
+  Key_Tab = "<tab>"
+  Key_Enter = "<enter>"
+  Key_Esc = "<esc>"
+  Key_CtrlLeftBracket = "<ctrl-[>"
+  Key_CtrlRightBracket = "<ctrl-]>"
+  Key_CtrlBackslash = "<ctrl-\\>"
+  Key_CtrlSlash = "<ctrl-/>"
+  Key_CtrlUnderscore = "<ctrl-_>"
   Key_Space = "<space>"
-
+  Key_Delete = "<delete>"
+  
+  Key_Ctrl2 = "<ctrl-2>"
+  Key_Ctrl3 = "<ctrl-3>"
+  Key_Ctrl4 = "<ctrl-4>"
+  Key_Ctrl5 = "<ctrl-5>"
+  Key_Ctrl6 = "<ctrl-6>"
+  Key_Ctrl7 = "<ctrl-7>"
+  Key_Ctrl8 = "<ctrl-8>"
+  
+  Key_CtrlA = "<ctrl-a>"
+  Key_CtrlB = "<ctrl-b>"
+  Key_CtrlC = "<ctrl-c>"
+  Key_CtrlD = "<ctrl-d>"
+  Key_CtrlE = "<ctrl-e>"
+  Key_CtrlF = "<ctrl-f>"
+  Key_CtrlG = "<ctrl-g>"
+  Key_CtrlH = "<ctrl-h>"
+  Key_CtrlI = "<ctrl-i>"
+  Key_CtrlJ = "<ctrl-j>"
+  Key_CtrlK = "<ctrl-k>"
+  Key_CtrlL = "<ctrl-l>"
+  Key_CtrlM = "<ctrl-m>"
+  Key_CtrlN = "<ctrl-n>"
+  Key_CtrlO = "<ctrl-o>"
+  Key_CtrlP = "<ctrl-p>"
   Key_CtrlQ = "<ctrl-q>"
+  Key_CtrlR = "<ctrl-r>"
+  Key_CtrlS = "<ctrl-s>"
+  Key_CtrlT = "<ctrl-t>"
+  Key_CtrlU = "<ctrl-u>"
+  Key_CtrlV = "<ctrl-v>"
+  Key_CtrlW = "<ctrl-w>"
+  Key_CtrlX = "<ctrl-x>"
+  Key_CtrlY = "<ctrl-y>"
   Key_CtrlZ = "<ctrl-z>"
+  
 
 # =======
 # Globals
@@ -53,11 +97,51 @@ let BindingMap: Table[uint16, string] = {
   TB_KEY_F11: Key_F11,
   TB_Key_F12: Key_F12,
 
-  TB_KEY_SPACE: Key_Space,
-  
+  TB_KEY_CTRL_TILDE: Key_Tilde,
+  TB_KEY_CTRL_2: Key_Ctrl2, 
+  TB_KEY_CTRL_A: Key_CtrlA,
+  TB_KEY_CTRL_B: Key_CtrlB,
+  TB_KEY_CTRL_C: Key_CtrlC,
+  TB_KEY_CTRL_D: Key_CtrlD,
+  TB_KEY_CTRL_E: Key_CtrlE,
+  TB_KEY_CTRL_F: Key_CtrlF,
+  TB_KEY_CTRL_G: Key_CtrlG,
+  TB_KEY_BACKSPACE: Key_Backspace,
+  TB_KEY_CTRL_H: Key_CtrlH,
+  TB_KEY_TAB: Key_Tab,
+  TB_KEY_CTRL_I: Key_CtrlI,
+  TB_KEY_CTRL_J: Key_CtrlJ,
+  TB_KEY_CTRL_K: Key_CtrlK,
+  TB_KEY_CTRL_L: Key_CtrlL,
+  TB_KEY_ENTER: Key_Enter,
+  TB_KEY_CTRL_M: Key_CtrlM,
+  TB_KEY_CTRL_N: Key_CtrlN,
+  TB_KEY_CTRL_O: Key_CtrlO,
+  TB_KEY_CTRL_P: Key_CtrlP,
   TB_KEY_CTRL_Q: Key_CtrlQ,
-  
+  TB_KEY_CTRL_R: Key_CtrlR,
+  TB_KEY_CTRL_S: Key_CtrlS,
+  TB_KEY_CTRL_T: Key_CtrlT,
+  TB_KEY_CTRL_U: Key_CtrlU,
+  TB_KEY_CTRL_V: Key_CtrlV,
+  TB_KEY_CTRL_W: Key_CtrlW,
+  TB_KEY_CTRL_X: Key_CtrlX,
+  TB_KEY_CTRL_Y: Key_CtrlY,
   TB_KEY_CTRL_Z: Key_CtrlZ,
+  TB_KEY_ESC: Key_Esc,
+  TB_KEY_CTRL_LSQ_BRACKET: Key_CtrlLeftBracket,
+  TB_KEY_CTRL_3: Key_Ctrl3,
+  TB_KEY_CTRL_4: Key_Ctrl4,
+  TB_KEY_CTRL_BACKSLASH: Key_CtrlBackslash,
+  TB_KEY_CTRL_5: Key_Ctrl5,
+  TB_KEY_CTRL_RSQ_BRACKET: Key_CtrlRightBracket,
+  TB_KEY_CTRL_6: Key_Ctrl6,
+  TB_KEY_CTRL_7: Key_Ctrl7,
+  TB_KEY_CTRL_SLASH: Key_CtrlSlash,
+  TB_KEY_CTRL_UNDERSCORE: Key_CtrlUnderscore,
+  TB_KEY_SPACE: Key_Space,
+  TB_KEY_BACKSPACE2: Key_Delete,
+  TB_KEY_CTRL_8: Key_Ctrl8,
   
 }.toTable
 

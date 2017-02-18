@@ -22,10 +22,10 @@ type Window* = object
 # Functions
 # =========
 
-proc getDirectoryContents(path: string): seq[tuple[kind: PathComponent, path: string]] = 
+proc getDirectoryContents*(path: string): seq[tuple[kind: PathComponent, path: string]] = 
   var contents = newSeq[tuple[kind: PathComponent, path: string]]()
-  for item in os.walkDir(path):
-    contents.add(item)
+  for item in os.walkDir(path, true):
+      contents.add(item)
   return contents
 
 proc addTab*(window: var Window, working_directory: string): Window = 

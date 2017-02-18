@@ -2,6 +2,7 @@
 # Imports
 # =======
 
+import os
 import posix
 
 import "types.nim"
@@ -38,6 +39,20 @@ proc drawDirectory(): void =
       discard tb_utf8_char_to_unicode(addr character, " ")
     tb_change_cell(col, 1, character, TB_DEFAULT, TB_DEFAULT)
 
+proc drawDirectoryContents(): void = 
+  let current_tab = window.currentTab(windowCtx)
+  let directory_path = " " & current_tab.filePath
+  var current_row = 3
+  for item in window.getDirectoryContents(current_tab.filePath):
+    if current_row < (tb_Height() - 2):
+      for col_index in 0..item.path.len:
+        var character: uint32
+        discard tb_utf8_char_to_unicode(addr character, $item.path[col_index])
+        tb_change_cell(cint(col_index + 4), cint(current_row), character, TB_DEFAULT, TB_DEFAULT)
+    else:
+      break
+    inc(current_row)
+
 # =========
 # Functions
 # =========
@@ -46,6 +61,7 @@ proc redraw*(): void =
   tb_clear()
   drawTabBar()
   drawDirectory()
+  drawDirectoryContents()
   tb_present()
 
 proc setCursor*(enabled: bool): void =
