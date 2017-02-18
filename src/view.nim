@@ -15,7 +15,14 @@ type View* = object
   cwd*: string
   items: seq[FileItem]
   active*: bool
+  visibleRange*: tuple[first: int, last: int]
+  markerIndex*: int
 
+# =========
+# Constants
+# =========
+
+const OffsetFromTopForItems = 3
 # =======
 # Drawing
 # =======
@@ -29,25 +36,51 @@ proc drawDirectoryPath(view: View): void =
     drawing.cell(column, row, $chr, TB_DEFAULT, TB_DEFAULT)
     inc(index)
 
-proc drawItems(view: View, theme: ColorTheme): void =
+proc drawItems(view: var View, theme: ColorTheme): void =
   let col_offset: cint = 4
-  var row: cint = 3
+  var row: cint = OffsetFromTopForItems
+  view.visibleRange.first = row
   for item in view.items:
     var index: cint = 0
     let path_name = fileitem.getName(item)
+    let draw_color = fileitem.getDisplayColor(item, theme)
     for chr in path_name:
       let col = col_offset + index
-      drawing.cell(col, row, $chr, TB_DEFAULT, TB_DEFAULT)
+      if row < (tb_height() - OffsetFromTopForItems):
+        drawing.cell(col, row, $chr, draw_color, TB_DEFAULT)
+        view.visibleRange.last = row
       inc(index)
     inc(row)
+
+proc drawMarker(view: var View): void =
+  let truncated_top = view.visibleRange.first != (0 + OffsetFromTopForItems)
+  let trancated_bottom = view.visibleRange.last != (view.items.len + OffsetFromTopForItems)
+  for index in view.visibleRange.first..view.visibleRange.last:
+    if index == view.markerIndex:
+      drawing.cell(cint(2), cint(index), ">", TB_BOLD, TB_DEFAULT)
+    else:
+      drawing.cell(cint(2), cint(index), " ", TB_DEFAULT, TB_DEFAULT)
 
 # =========
 # Functions
 # =========
 
 proc createView*(path: string): View =
-  return View(cwd: path, items: fileitem.populate(path), active: false)
+  return View(cwd: path, items: fileitem.populate(path), active: false, markerIndex: OffsetFromTopForItems)
 
-proc draw*(view: View, theme: ColorTheme): void = 
-  drawDirectoryPath(view)
-  drawItems(view, theme)
+proc draw*(displayed_view: var View, theme: ColorTheme): void = 
+  drawDirectoryPath(displayed_view)
+  drawItems(displayed_view, theme)
+  drawMarker(displayed_view)
+
+proc moveMarkerUp*(view: var View): void =
+  var current: int = view.markerIndex
+  let peek = current - 1
+  if peek >= view.visibleRange.first:
+    view.markerIndex = peek
+
+proc moveMarkerDown*(view: var View): void = 
+  var current: int = view.markerIndex
+  let peek = current + 1
+  if peek <= view.visibleRange.last:
+    view.markerIndex = peek

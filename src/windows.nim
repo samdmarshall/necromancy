@@ -27,11 +27,11 @@ type Window* = object
 # =======
 
 proc drawTopBar(window: Window): void =
-  for col in 0..tb_Width():
+  for col in 0..(tb_Width() - 1):
     drawing.cell(cint(col), cint(0), " ", TB_DEFAULT, TB_BLACK)
 
 proc drawBottomBar(window: Window): void =
-  for col in 0..tb_Width():
+  for col in 0..(tb_Width() - 1):
     let bottom_bar_offset = tb_height() - 2
     drawing.cell(cint(col), cint(bottom_bar_offset), " ", TB_DEFAULT, TB_BLACK)
 
@@ -39,6 +39,18 @@ proc drawBottomBar(window: Window): void =
 # Functions
 # =========
 
+proc updateView*(window: var Window, view: View): void =
+  var view_index = 0
+  for view_item in window.views:
+    if view_item.active:
+      window.views[view_index] = view
+    inc(view_index)
+
+proc getActiveView*(window: Window): View = 
+  for view in window.views:
+    if view.active:
+      return view
+  
 proc setCursorDisplay*(enabled: bool): void =
   if enabled:
     tb_set_cursor(0, 0)
@@ -49,18 +61,18 @@ proc createWindow*(config: Configuration, working_path: string): Window =
   let tb_mode = convertDisplayModeToTermbox(config.colorMode)
   var main_view = view.createView(working_path)
   main_view.active = true
-  return Window(displayMode: tb_mode, views: @[main_view])
+  return Window(displayMode: tb_mode, views: @[main_view], colorTheme: config.theme)
 
-proc redraw*(window: Window): void = 
+proc redraw*(window: var Window): void = 
   tb_clear()
   drawTopBar(window)
-  let active_views = sequtils.filter(window.views, proc(x: View): bool = (x.active))
-  for display_view in active_views:
-    view.draw(display_view, window.colorTheme)
+  var displayed_view = getActiveView(window)
+  draw(displayed_view, window.colorTheme)
+  updateView(window, displayed_view)
   drawBottomBar(window)
   tb_present()
 
-proc initializeDisplay*(window: Window): void = 
+proc initializeDisplay*(window: var Window): void = 
   discard tb_init()
   discard tb_select_output_mode(window.displayMode)
   setCursorDisplay(false)
@@ -71,7 +83,7 @@ proc shutdownDisplay*(window: Window): void =
   setCursorDisplay(true)
   tb_shutdown()
 
-proc suspendDisplay*(window: Window): void =
+proc suspendDisplay*(window: var Window): void =
   shutdownDisplay(window)
   discard `raise`(SIGSTOP)
   initializeDisplay(window)

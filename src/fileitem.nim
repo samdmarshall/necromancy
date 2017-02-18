@@ -4,32 +4,66 @@
 
 import os
 
+import "theme.nim"
+
 # =====
 # Types
 # =====
 
 type FileItem* = object
+  parent: string
   data: tuple[kind: PathComponent, path: string]
-  
+
+type FileType {.pure.} = enum
+  File,
+  Executable,
+  Directory,
+  Symlink,
 
 # =========
 # Functions
 # =========
 
-proc getInfo*(file: FileItem): FileInfo =
-  return os.getFileInfo(file.data.path)
+proc getFullPath*(file: FileItem): string =
+  return os.joinPath(file.parent, file.data.path)
 
-proc getDecorator(file: FileItem): string =
+proc getInfo*(file: FileItem): FileInfo =
+  return os.getFileInfo(getFullPath(file))
+
+proc resolveFileType(file: FileItem): FileType =
   let info = getInfo(file)
   case file.data.kind
   of pcDir:
-    return "/"
+    return FileType.Directory
   of pcFile:
     if FilePermission.fpUserExec in info.permissions:
-      return "*"
+      return FileType.Executable
+    return FileType.File
   else:
+    return FileType.Symlink
+
+proc getDisplayColor*(file: FileItem, colors: ColorTheme): uint16 = 
+  case resolveFileType(file)
+  of FileType.File:
+    return theme.convertColorToTermbox(colors.file)
+  of FileType.Executable:
+    return theme.convertColorToTermbox(colors.executable)
+  of FileType.Directory:
+    return theme.convertColorToTermbox(colors.directory)
+  of FileType.Symlink:
+    return theme.convertColorToTermbox(colors.symlink)
+
+
+proc getDecorator(file: FileItem): string =
+  case resolveFileType(file)
+  of FileType.File:
+    return ""
+  of FileType.Executable:
+    return "*"
+  of FileType.Directory:
+    return "/"
+  of FileType.Symlink:
     return " -> " & os.expandSymlink(file.data.path)
-  return ""
 
 proc getName*(file: FileItem): string = 
   return file.data.path & getDecorator(file)
@@ -37,6 +71,6 @@ proc getName*(file: FileItem): string =
 proc populate*(directory: string): seq[FileItem] = 
   var items = newSeq[FileItem]()
   for item in os.walkDir(directory, relative = true):
-    let fi = FileItem(data: item)
+    let fi = FileItem(parent: directory, data: item)
     items.add(fi)
   return items

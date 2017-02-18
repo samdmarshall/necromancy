@@ -6,6 +6,11 @@ const
   Command_Help* = "help"
   Command_Quit* = "quit"
   Command_Suspend* = "suspend"
+  Command_Up* = "up"
+  Command_Down* = "down"
+  Command_GoIn* = "in"
+  Command_GoOut* = "out"
+  Command_Prompt* = "prompt"
 
 
 const

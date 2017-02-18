@@ -65,7 +65,7 @@ initiateLogger(configuration_directory, enable_trace_logging)
 
 let config = preferences.load(configuration_full_path)
 
-var window = windows.createWindow(config, working_directory)
-windows.initializeDisplay(window)
-while eventhandler.processInput(window, config.keys):
-  windows.redraw(window)
+var window = createWindow(config, working_directory)
+initializeDisplay(window)
+while processInput(window, config.keys):
+  redraw(window)

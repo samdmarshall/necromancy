@@ -36,6 +36,11 @@ const
   Key_F11 = "<F11>"
   Key_F12 = "<F12>"
 
+  Key_Up = "<up>"
+  Key_Down = "<down>"
+  Key_Left = "<left>"
+  Key_Right = "<right>"
+
   Key_Tilde = "<~>"
   Key_Backspace = "<backspace>"
   Key_Tab = "<tab>"
@@ -102,6 +107,11 @@ const BindingMap: Table[uint16, string] = {
   TB_KEY_F10: Key_F10,
   TB_KEY_F11: Key_F11,
   TB_Key_F12: Key_F12,
+
+  TB_KEY_ARROW_UP: KeyUp,
+  TB_KEY_ARROW_DOWN: Key_Down,
+  TB_KEY_ARROW_LEFT: Key_Left,
+  TB_KEY_ARROW_RIGHT: Key_Right,
 
   TB_KEY_CTRL_TILDE: Key_Tilde,
   TB_KEY_CTRL_2: Key_Ctrl2, 

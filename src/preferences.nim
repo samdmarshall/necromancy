@@ -42,11 +42,13 @@ proc load*(path: string): Configuration =
   for action_mapping in actions:
     let mapping: string = parsecfg.getSectionValue(config_data, "keys", action_mapping)
     bindings.add(UserKeyBinding(key: mapping, action: action_mapping))
+    Logger(Info, "Mapping '" & mapping & "' to '" & action_mapping & "'")
 
-  var config = Configuration(colorMode: mode, keys: bindings, theme: theme.DefaultTheme)
+  var config = Configuration(colorMode: mode, keys: bindings, theme: DefaultTheme)
   
   for item in ColorThemeItems():
     let mapping = parsecfg.getSectionValue(config_data, "theme", item)
-    theme.updateValue(config.theme, item, mapping)
+    if mapping.len > 0:
+      theme.updateValue(config.theme, item, mapping)
 
   result = config
