@@ -3,8 +3,10 @@
 # =======
 
 import os
+import tables
 import streams
 import parsecfg
+import sequtils
 
 import "color.nim"
 import "logger.nim"
@@ -33,7 +35,8 @@ proc load*(path: string): Configuration =
   let mode = color.convertConfigToDisplayMode(parsed_mode)
 
   var bindings = newSeq[UserKeyBinding]()
-  for action_mapping in actions.KnownActions:
+  let actions: seq[string] = sequtils.toSeq(CommandMap.keys())
+  for action_mapping in actions:
     let mapping: string = parsecfg.getSectionValue(config_data, "keys", action_mapping)
     bindings.add(UserKeyBinding(key: mapping, action: action_mapping))
   

@@ -7,6 +7,7 @@ import sequtils
 
 import "view.nim"
 import "color.nim"
+import "drawing.nim"
 import "termbox.nim"
 
 # =====
@@ -21,19 +22,14 @@ type Window* = object
 # Drawing
 # =======
 
-proc drawCell(x: cint, y: cint, chr: string, fg: uint16, bg: uint16): void =
-  var character: uint32
-  discard tb_utf8_char_to_unicode(addr character, chr)
-  tb_change_cell(x, y, character, fg, bg)
-
 proc drawTopBar(window: Window): void =
   for col in 0..tb_Width():
-    drawCell(cint(col), cint(0), " ", TB_DEFAULT, TB_BLACK)
+    drawing.cell(cint(col), cint(0), " ", TB_DEFAULT, TB_BLACK)
 
 proc drawBottomBar(window: Window): void =
   for col in 0..tb_Width():
     let bottom_bar_offset = tb_height() - 2
-    drawCell(cint(col), cint(bottom_bar_offset), " ", TB_DEFAULT, TB_BLACK)
+    drawing.cell(cint(col), cint(bottom_bar_offset), " ", TB_DEFAULT, TB_BLACK)
 
 # =========
 # Functions

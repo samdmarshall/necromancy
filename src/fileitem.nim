@@ -16,15 +16,23 @@ type FileItem* = object
 # Functions
 # =========
 
-proc getName*(file: FileItem): string = 
-  case file.data.kind
-  of pcDir:
-    return file.data.path & "/"
-  else:
-    return file.data.path
-
 proc getInfo*(file: FileItem): FileInfo =
   return os.getFileInfo(file.data.path)
+
+proc getDecorator(file: FileItem): string =
+  let info = getInfo(file)
+  case file.data.kind
+  of pcDir:
+    return "/"
+  of pcFile:
+    if FilePermission.fpUserExec in info.permissions:
+      return "*"
+  else:
+    return " -> " & os.expandSymlink(file.data.path)
+  return ""
+
+proc getName*(file: FileItem): string = 
+  return file.data.path & getDecorator(file)
 
 proc populate*(directory: string): seq[FileItem] = 
   var items = newSeq[FileItem]()

@@ -13,12 +13,6 @@ const
   Command_Quit* = "quit"
   Command_Suspend* = "suspend"
 
-const CommandsList*: seq[string] = @[
-  Command_Help,
-  Command_Quit,
-  Command_Suspend,
-]
-
 # =========
 # Functions
 # =========

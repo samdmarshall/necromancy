@@ -33,7 +33,8 @@ proc processInput*(window: Window, keyMapping: seq[UserKeyBinding]): bool =
     mapped_action = "reload"
   else:
     discard
-  if mapped_action in command.CommandsList:
+  let values: seq[string] = sequtils.toSeq(CommandMap.values())
+  if mapped_action in values:
     let command_string: string = CommandMap[mapped_action]
     return command.perform(window, command_string, @[])
   else:
