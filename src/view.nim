@@ -11,6 +11,7 @@ import "fileitem.nim"
 type View* = object
   cwd*: string
   items*: seq[FileItem]
+  active*: bool
 
 
 # =========
@@ -18,4 +19,7 @@ type View* = object
 # =========
 
 proc createView*(path: string): View =
-  return View(cwd: path, items: fileitem.populate(path))
+  return View(cwd: path, items: fileitem.populate(path), active: false)
+
+proc draw*(view: View): void = 
+  discard
