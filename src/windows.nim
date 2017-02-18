@@ -8,6 +8,7 @@ import sequtils
 
 import "view.nim"
 import "color.nim"
+import "theme.nim"
 import "drawing.nim"
 import "termbox.nim"
 import "preferences.nim"
@@ -19,7 +20,7 @@ import "preferences.nim"
 type Window* = object
   displayMode: cint
   views: seq[View]
-  colorTheme: Table[string, cint]
+  colorTheme: ColorTheme
 
 # =======
 # Drawing
