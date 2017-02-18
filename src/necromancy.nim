@@ -3,12 +3,14 @@
 # =======
 
 import os
+import sets
 import parseopt2
 
-import "view.nim"
 import "logger.nim"
-import "bindings.nim"
+import "command.nim"
+import "windows.nim"
 import "preferences.nim"
+import "eventhandler.nim"
 
 # =========
 # Functions
@@ -61,7 +63,9 @@ let configuration_directory = os.parentDir(configuration_full_path)
 
 initiateLogger(configuration_directory, enable_trace_logging)
 
-let config = loadPreferences(configuration_full_path)
-view.initializeDisplay(config.colorMode, working_directory)
-while processInput(config.keys):
-  view.redraw()
+let config = preferences.load(configuration_full_path)
+
+var window = windows.createWindow(config.colorMode, working_directory)
+windows.initializeDisplay(window)
+while eventhandler.processInput(window, config.keys):
+  windows.redraw(window)

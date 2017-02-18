@@ -6,10 +6,16 @@ import posix
 import tables
 import sequtils
 
-import "types.nim"
 import "logger.nim"
-import "actions.nim"
 import "termbox.nim"
+
+# =====
+# Types
+# =====
+
+type UserKeyBinding* = object
+  key*: string
+  action*: string
 
 # =========
 # Constants
@@ -83,7 +89,7 @@ const
 # Globals
 # =======
 
-let BindingMap: Table[uint16, string] = {
+const BindingMap: Table[uint16, string] = {
   TB_KEY_F1: Key_F1,
   TB_KEY_F2: Key_F2,
   TB_KEY_F3: Key_F3,
@@ -145,7 +151,7 @@ let BindingMap: Table[uint16, string] = {
   
 }.toTable
 
-let AsciiBindingMap: Table[uint32, string] = {
+const AsciiBindingMap: Table[uint32, string] = {
   uint32(33): "!",
   uint32(34): "\"",
   uint32(35): "#",
@@ -246,30 +252,10 @@ let AsciiBindingMap: Table[uint32, string] = {
 # =========
 
 
-proc translateBinding(input: tb_event, keyMapping: seq[UserKeyBinding]): string = 
-  case input.`type`
-  of TB_EVENT_KEY:
-    var mapped_key = ""
-    if input.ch in AsciiBindingMap:
-      mapped_key = AsciiBindingMap[input.ch]
-    elif input.key in BindingMap:
-      mapped_key = BindingMap[input.key]
-    if mapped_key != "":
-      let found_bindings = sequtils.filterIt(keyMapping, it.key == mapped_key)
-      if found_bindings.len > 0:
-        return found_bindings[0].action
-    Logger(Notice, "Got key event, but couldn't match it to any binding, ignoring")
-  of TB_EVENT_RESIZE:
-    return "reload"
-  else:
-    discard
+proc translate*(input: tb_event): string = 
+  if input.ch in AsciiBindingMap:
+    return AsciiBindingMap[input.ch]
+  elif input.key in BindingMap:
+    return BindingMap[input.key]
   return ""
-  
-proc processInput*(keyMapping: seq[UserKeyBinding]): bool = 
-  var event: tb_event
-  let event_result = tb_poll_event(addr event)
-  let action_string = translateBinding(event, keyMapping)
-  if action_string != "":
-    result = handleAction(action_string)
-  else:
-    result = true
+
