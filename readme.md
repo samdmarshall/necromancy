@@ -13,7 +13,7 @@ necromancy [--verbose] [--debug] [--config:path] [-h|--help] [-v|--version] path
 
 ## installation
 
-from source (you will need to install [nim](http://nim-lang.com/) first, as well as [termbox](https://github.com/nsf/termbox)):
+from source (you will need to install [nim](http://nim-lang.org/) first, as well as [termbox](https://github.com/nsf/termbox)):
 ```
 nimble build
 ```
