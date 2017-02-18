@@ -3,15 +3,7 @@
 # =======
 
 import "windows.nim"
-
-# =======
-# Globals
-# =======
-
-const
-  Command_Help* = "help"
-  Command_Quit* = "quit"
-  Command_Suspend* = "suspend"
+import "constants.nim"
 
 # =========
 # Functions

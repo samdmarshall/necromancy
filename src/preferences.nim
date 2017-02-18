@@ -7,8 +7,10 @@ import tables
 import streams
 import parsecfg
 import sequtils
+import typeinfo
 
 import "color.nim"
+import "theme.nim"
 import "logger.nim"
 import "actions.nim"
 import "bindings.nim"
@@ -20,6 +22,7 @@ import "bindings.nim"
 type Configuration* = object
   colorMode*: ColorMode
   keys*: seq[UserKeyBinding]
+  theme*: ColorTheme
 
 # =========
 # Functions
@@ -39,6 +42,11 @@ proc load*(path: string): Configuration =
   for action_mapping in actions:
     let mapping: string = parsecfg.getSectionValue(config_data, "keys", action_mapping)
     bindings.add(UserKeyBinding(key: mapping, action: action_mapping))
+
+  var config = Configuration(colorMode: mode, keys: bindings, theme: theme.DefaultTheme)
   
-  let config = Configuration(colorMode: mode, keys: bindings)
+  for item in ColorThemeItems():
+    let mapping = parsecfg.getSectionValue(config_data, "theme", item)
+    theme.updateValue(config.theme, item, mapping)
+
   result = config

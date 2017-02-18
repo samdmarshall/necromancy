@@ -3,12 +3,14 @@
 # =======
 
 import posix
+import tables
 import sequtils
 
 import "view.nim"
 import "color.nim"
 import "drawing.nim"
 import "termbox.nim"
+import "preferences.nim"
 
 # =====
 # Types
@@ -17,6 +19,7 @@ import "termbox.nim"
 type Window* = object
   displayMode: cint
   views: seq[View]
+  colorTheme: Table[string, cint]
 
 # =======
 # Drawing
@@ -41,8 +44,8 @@ proc setCursorDisplay*(enabled: bool): void =
   else:
     tb_set_cursor(TB_HIDE_CURSOR, TB_HIDE_CURSOR)
 
-proc createWindow*(mode: ColorMode, working_path: string): Window =
-  let tb_mode = convertDisplayModeToTermbox(mode)
+proc createWindow*(config: Configuration, working_path: string): Window =
+  let tb_mode = convertDisplayModeToTermbox(config.colorMode)
   var main_view = view.createView(working_path)
   main_view.active = true
   return Window(displayMode: tb_mode, views: @[main_view])
