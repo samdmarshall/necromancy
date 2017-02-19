@@ -28,9 +28,13 @@ proc perform*(window: var Window, command: string, args: seq[string]): bool =
     moveMarkerDown(active_view)
     updateView(window, active_view)
   of Command_GoIn:
-    discard
+    var active_view = windows.getActiveView(window)
+    navigateIn(active_view)
+    updateView(window, active_view)
   of Command_GoOut:
-    discard
+    var active_view = windows.getActiveView(window)
+    navigateOut(active_view)
+    updateView(window, active_view)
   of Command_Prompt:
     discard
   else:

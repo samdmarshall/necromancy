@@ -2,6 +2,8 @@
 # Imports
 # =======
 
+import os
+
 import "theme.nim"
 import "drawing.nim"
 import "termbox.nim"
@@ -61,6 +63,12 @@ proc drawMarker(view: var View): void =
     else:
       drawing.cell(cint(2), cint(index), " ", TB_DEFAULT, TB_DEFAULT)
 
+proc drawDebug(view: var View): void =
+  var col_offset: cint = 0
+  for chr in $view.markerIndex:
+    drawing.cell(col_offset, tb_height()-1, $chr, TB_DEFAULT, TB_DEFAULT)
+    inc(col_offset)
+
 # =========
 # Functions
 # =========
@@ -68,10 +76,18 @@ proc drawMarker(view: var View): void =
 proc createView*(path: string): View =
   return View(cwd: path, items: fileitem.populate(path), active: false, markerIndex: OffsetFromTopForItems)
 
+proc updateViewContents*(view: var View, path: string): void =
+  view.cwd = path
+  view.items = fileitem.populate(path)
+  view.markerIndex = OffsetFromTopForItems
+  view.visibleRange.first = OffsetFromTopForItems
+  view.visibleRange.last = OffsetFromTopForItems
+
 proc draw*(displayed_view: var View, theme: ColorTheme): void = 
   drawDirectoryPath(displayed_view)
   drawItems(displayed_view, theme)
   drawMarker(displayed_view)
+  drawDebug(displayed_view)
 
 proc moveMarkerUp*(view: var View): void =
   var current: int = view.markerIndex
@@ -84,3 +100,15 @@ proc moveMarkerDown*(view: var View): void =
   let peek = current + 1
   if peek <= view.visibleRange.last:
     view.markerIndex = peek
+
+proc navigateIn*(view: var View): void =
+  var current: int = view.markerIndex - OffsetFromTopForItems
+  let item_type = fileitem.getInfo(view.items[current])
+  case item_type.kind
+  of pcDir, pcLinkToDir:
+    updateViewContents(view, fileitem.getFullPath(view.items[current]))
+  else:
+    discard
+
+proc navigateOut*(view: var View): void =
+  updateViewContents(view, os.parentDir(view.cwd))
