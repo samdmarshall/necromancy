@@ -63,7 +63,12 @@ proc getDecorator(file: FileItem): string =
   of FileType.Directory:
     return "/"
   of FileType.Symlink:
-    return " -> " & os.expandSymlink(file.data.path)
+    var expanded_path: string
+    try:
+      expanded_path = os.expandSymlink(file.data.path)
+    except:
+      expanded_path = "???"
+    return " -> " & expanded_path
 
 proc getName*(file: FileItem): string = 
   return file.data.path & getDecorator(file)

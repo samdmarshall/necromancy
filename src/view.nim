@@ -55,13 +55,14 @@ proc drawItems(view: var View, theme: ColorTheme): void =
     inc(row)
 
 proc drawMarker(view: var View): void =
-  let truncated_top = view.visibleRange.first != (0 + OffsetFromTopForItems)
-  let trancated_bottom = view.visibleRange.last != (view.items.len + OffsetFromTopForItems)
-  for index in view.visibleRange.first..view.visibleRange.last:
-    if index == view.markerIndex:
-      drawing.cell(cint(2), cint(index), ">", TB_BOLD, TB_DEFAULT)
-    else:
-      drawing.cell(cint(2), cint(index), " ", TB_DEFAULT, TB_DEFAULT)
+  if view.items.len > 0:
+    let truncated_top = view.visibleRange.first != (0 + OffsetFromTopForItems)
+    let trancated_bottom = view.visibleRange.last != (view.items.len + OffsetFromTopForItems)
+    for index in view.visibleRange.first..view.visibleRange.last:
+      if index == view.markerIndex:
+        drawing.cell(cint(2), cint(index), ">", TB_BOLD, TB_DEFAULT)
+      else:
+        drawing.cell(cint(2), cint(index), " ", TB_DEFAULT, TB_DEFAULT)
 
 proc drawDebug(view: var View): void =
   var col_offset: cint = 0
@@ -73,15 +74,17 @@ proc drawDebug(view: var View): void =
 # Functions
 # =========
 
-proc createView*(path: string): View =
-  return View(cwd: path, items: fileitem.populate(path), active: false, markerIndex: OffsetFromTopForItems)
-
 proc updateViewContents*(view: var View, path: string): void =
-  view.cwd = path
-  view.items = fileitem.populate(path)
+  view.cwd = path & "/"
+  view.items = fileitem.populate(view.cwd)
   view.markerIndex = OffsetFromTopForItems
   view.visibleRange.first = OffsetFromTopForItems
   view.visibleRange.last = OffsetFromTopForItems
+
+proc createView*(path: string): View =
+  var new_view = View(active: false)
+  updateViewContents(new_view, path)
+  return new_view
 
 proc draw*(displayed_view: var View, theme: ColorTheme): void = 
   drawDirectoryPath(displayed_view)
@@ -102,13 +105,14 @@ proc moveMarkerDown*(view: var View): void =
     view.markerIndex = peek
 
 proc navigateIn*(view: var View): void =
-  var current: int = view.markerIndex - OffsetFromTopForItems
-  let item_type = fileitem.getInfo(view.items[current])
-  case item_type.kind
-  of pcDir, pcLinkToDir:
-    updateViewContents(view, fileitem.getFullPath(view.items[current]))
-  else:
-    discard
+  if view.items.len > 0:
+    var current: int = view.markerIndex - OffsetFromTopForItems
+    let item_type = fileitem.getInfo(view.items[current])
+    case item_type.kind
+    of pcDir, pcLinkToDir:
+      updateViewContents(view, fileitem.getFullPath(view.items[current]))
+    else:
+      discard
 
 proc navigateOut*(view: var View): void =
   updateViewContents(view, os.parentDir(view.cwd))
