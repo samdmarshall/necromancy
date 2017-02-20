@@ -11,6 +11,7 @@ import "command.nim"
 import "termbox.nim"
 import "windows.nim"
 import "bindings.nim"
+import "constants.nim"
 
 # =========
 # Functions
@@ -19,10 +20,11 @@ import "bindings.nim"
 proc processInput*(window: var Window, keyMapping: seq[UserKeyBinding]): bool = 
   var event: tb_event
   discard tb_poll_event(addr event)
-
   var mapped_action = ""
   case event.`type`
-  of TB_EVENT_KEY, TB_EVENT_MOUSE:
+  of TB_EVENT_MOUSE:
+    discard
+  of TB_EVENT_KEY:
     let key_string = bindings.translate(event)
     if key_string.len > 0:
       let found_mapped_actions = sequtils.filter(keyMapping, proc(x: UserKeyBinding): bool = (x.key == key_string))
@@ -31,7 +33,7 @@ proc processInput*(window: var Window, keyMapping: seq[UserKeyBinding]): bool =
           Logger(Warn, "this key has more than one binding associated with it, the last one defined in the config file will be used")
         mapped_action = found_mapped_actions[^1].action
   of TB_EVENT_RESIZE:
-    mapped_action = "reload"
+    mapped_action = Command_Reload
   else:
     discard
   let values: seq[string] = sequtils.toSeq(CommandMap.keys())

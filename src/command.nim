@@ -37,6 +37,8 @@ proc perform*(window: var Window, command: string, args: seq[string]): bool =
     updateView(window, active_view)
   of Command_Prompt:
     discard
+  of Command_Reload:
+    redraw(window)
   else:
     discard
   return true

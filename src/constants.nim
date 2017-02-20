@@ -11,6 +11,7 @@ const
   Command_GoIn* = "in"
   Command_GoOut* = "out"
   Command_Prompt* = "prompt"
+  Command_Reload* = "reload"
 
 
 const

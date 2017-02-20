@@ -41,6 +41,9 @@ const
   Key_Left = "<left>"
   Key_Right = "<right>"
 
+  Key_MouseWheelUp = "<scroll-up>"
+  Key_MouseWheelDown = "<scroll-down>"
+
   Key_Tilde = "<~>"
   Key_Backspace = "<backspace>"
   Key_Tab = "<tab>"
@@ -112,6 +115,9 @@ const BindingMap: Table[uint16, string] = {
   TB_KEY_ARROW_DOWN: Key_Down,
   TB_KEY_ARROW_LEFT: Key_Left,
   TB_KEY_ARROW_RIGHT: Key_Right,
+
+  TB_KEY_MOUSE_WHEEL_UP: Key_MouseWheelUp,
+  TB_KEY_MOUSE_WHEEL_DOWN: Key_MouseWheelDown,
 
   TB_KEY_CTRL_TILDE: Key_Tilde,
   TB_KEY_CTRL_2: Key_Ctrl2, 

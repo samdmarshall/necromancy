@@ -60,7 +60,6 @@ for kind, key, value in parseopt2.getopt():
 
 let configuration_full_path = os.expandFilename(configuration_path)
 let configuration_directory = os.parentDir(configuration_full_path)
-
 initiateLogger(configuration_directory, enable_trace_logging)
 
 let config = preferences.load(configuration_full_path)
