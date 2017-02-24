@@ -58,6 +58,16 @@ for kind, key, value in parseopt2.getopt():
   else:
     discard
 
+if not configuration_path.fileExists():
+  echo("unable to find a configuration file at '" & configuration_path & "'! Please;")
+  echo("  1. create it")
+  echo("  -- or --")
+  echo("  2. specify the path to the configuration file using:")
+  echo("    * the command line flag `--config:path`")
+  echo("    -- or --")
+  echo("    * the environment variable `NECROMANCY_CONFIG`")
+  quit(QuitFailure)
+
 let configuration_full_path = os.expandFilename(configuration_path)
 let configuration_directory = os.parentDir(configuration_full_path)
 initiateLogger(configuration_directory, enable_trace_logging)
