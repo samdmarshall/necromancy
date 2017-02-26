@@ -6,9 +6,10 @@ import os
 import sets
 import parseopt2
 
+import "view.nim"
+import "types.nim"
 import "logger.nim"
-import "command.nim"
-import "windows.nim"
+import "display.nim"
 import "preferences.nim"
 import "eventhandler.nim"
 
@@ -70,11 +71,22 @@ if not configuration_path.fileExists():
 
 let configuration_full_path = os.expandFilename(configuration_path)
 let configuration_directory = os.parentDir(configuration_full_path)
+
 initiateLogger(configuration_directory, enable_trace_logging)
 
-let config = preferences.load(configuration_full_path)
+let user_configuration = loadUserConfiguration(configuration_full_path) 
 
-var window = createWindow(config, working_directory)
-initializeDisplay(window)
-while processInput(window, config.keys):
-  redraw(window)
+# starting up the screen
+startupDisplay()
+
+var screen = createMainWindow()
+
+if enable_trace_logging:
+  var debug = createDebugView()
+  screen.views.add(debug)
+
+while processInput(screen, user_configuration):
+  draw(screen)
+
+# shutting down the screen
+shutdownDisplay()

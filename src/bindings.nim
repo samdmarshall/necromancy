@@ -6,16 +6,7 @@ import posix
 import tables
 import sequtils
 
-import "logger.nim"
 import "termbox.nim"
-
-# =====
-# Types
-# =====
-
-type UserKeyBinding* = object
-  key*: string
-  action*: string
 
 # =========
 # Constants
@@ -44,7 +35,7 @@ const
   Key_MouseWheelUp = "<scroll-up>"
   Key_MouseWheelDown = "<scroll-down>"
 
-  Key_Tilde = "<~>"
+  Key_CtrlTilde = "<ctrl-~>"
   Key_Backspace = "<backspace>"
   Key_Tab = "<tab>"
   Key_Enter = "<enter>"
@@ -119,7 +110,7 @@ const BindingMap: Table[uint16, string] = {
   TB_KEY_MOUSE_WHEEL_UP: Key_MouseWheelUp,
   TB_KEY_MOUSE_WHEEL_DOWN: Key_MouseWheelDown,
 
-  TB_KEY_CTRL_TILDE: Key_Tilde,
+  TB_KEY_CTRL_TILDE: Key_CtrlTilde,
   TB_KEY_CTRL_2: Key_Ctrl2, 
   TB_KEY_CTRL_A: Key_CtrlA,
   TB_KEY_CTRL_B: Key_CtrlB,
@@ -266,7 +257,6 @@ const AsciiBindingMap: Table[uint32, string] = {
 # =========
 # Functions
 # =========
-
 
 proc translate*(input: tb_event): string = 
   if input.ch in AsciiBindingMap:

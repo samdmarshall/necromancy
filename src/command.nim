@@ -3,42 +3,35 @@
 # =======
 
 import "view.nim"
-import "windows.nim"
+import "types.nim"
+import "display.nim"
 import "constants.nim"
 
 # =========
 # Functions
 # =========
 
-proc perform*(window: var Window, command: string, args: seq[string]): bool = 
+proc perform*(screen: Window, command: string, args: seq[string]): bool = 
   case command
   of Command_Help:
     discard
   of Command_Quit:
-    windows.shutdownDisplay(window)
     return false
   of Command_Suspend:
-    windows.suspendDisplay(window)
+    suspendDisplay()
+    discard
   of Command_Up:
-    var active_view = windows.getActiveView(window)
-    moveMarkerUp(active_view)
-    updateView(window, active_view)
+    discard
   of Command_Down:
-    var active_view = windows.getActiveView(window)
-    moveMarkerDown(active_view)
-    updateView(window, active_view)
+    discard
   of Command_GoIn:
-    var active_view = windows.getActiveView(window)
-    navigateIn(active_view)
-    updateView(window, active_view)
+    discard
   of Command_GoOut:
-    var active_view = windows.getActiveView(window)
-    navigateOut(active_view)
-    updateView(window, active_view)
+    discard
   of Command_Prompt:
     discard
   of Command_Reload:
-    redraw(window)
+    discard
   else:
     discard
   return true
