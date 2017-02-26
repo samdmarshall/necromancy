@@ -2,7 +2,6 @@
 # Imports
 # =======
 
-import "view.nim"
 import "types.nim"
 import "display.nim"
 import "constants.nim"
@@ -19,7 +18,6 @@ proc perform*(screen: Window, command: string, args: seq[string]): bool =
     return false
   of Command_Suspend:
     suspendDisplay()
-    discard
   of Command_Up:
     discard
   of Command_Down:
@@ -31,7 +29,7 @@ proc perform*(screen: Window, command: string, args: seq[string]): bool =
   of Command_Prompt:
     discard
   of Command_Reload:
-    discard
+    draw(screen)
   else:
     discard
   return true
