@@ -1,8 +1,11 @@
-dependencies:
-  pre:
-    - sudo apt-get update
-    - sudo apt-get install nim
+machine:
+  services:
+    - docker
 
+dependencies:
+  override:
+    - docker info
+    
 test:
   override:
-    - nimble build
+    - docker build -t necromancy .
