@@ -12,11 +12,6 @@ import "../models/types.nim"
 # Functions
 # =========
 
-template writeToDebugConsole*(screen: Window, message: string) =
-  var debug_index = getDebugViewIndex(screen)
-  if debug_index != -1:
-    screen.views[debug_index] = writeNewTextLine(screen.views[debug_index], message)
-
 proc setText*(view: View, display: string): View =
   if (not isViewValid(view)) and view.isa == ViewType.Label:
     return

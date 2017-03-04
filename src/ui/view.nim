@@ -2,6 +2,7 @@
 # Imports
 # =======
 
+import os
 import sequtils
 
 import "theme.nim"
@@ -9,6 +10,7 @@ import "theme.nim"
 import "../termbox.nim"
 
 import "../models/types.nim"
+import "../models/fileitem.nim"
 
 import "../events/constants.nim"
 
@@ -59,6 +61,20 @@ proc createLabelViewAtPointWithSize*(point: Point, size: Size): View =
   view.isa = Label
   return view
 
+proc createBrowserViewAtPointWithSize*(point: Point, size: Size): View =
+  var view = createViewAtPointWithSize(point, size)
+  view.isa = Browser
+  let current_path = getEnv("PWD")
+  view.contents.browser.activePath = current_path
+  view.contents.browser.items = populate(current_path)
+  return view
+
+proc createInputViewAtPointWithSize*(point: Point, size: Size): View =
+  var view = createViewAtPointWithSize(point, size)
+  view.isa = Input
+  view.contents.input.prompt = ": "
+  return view
+
 proc createMainWindow*(): Window = 
   let full_screen = Size(width: tb_width(), height: tb_height())
   var main = createViewAtPointWithSize(ZeroPoint, full_screen)
@@ -87,7 +103,7 @@ proc createMainWindow*(): Window =
 
   let command_prompt_rect = Size(width: tb_width(), height: 1)
   let command_prompt_origin = Point(x: 0, y: (tb_height() - 1))
-  var command_prompt = createTextViewAtPointWithSize(command_prompt_origin, command_prompt_rect)
+  var command_prompt = createInputViewAtPointWithSize(command_prompt_origin, command_prompt_rect)
   command_prompt.name = ViewName_CommandEntry
     
   return Window(views: @[main, top_bar, directory_path, directory_contents, command_prompt, bottom_bar])

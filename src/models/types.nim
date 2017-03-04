@@ -2,6 +2,8 @@
 # Imports
 # =======
 
+import "fileitem.nim"
+
 import "../termbox.nim"
 
 # =====
@@ -28,7 +30,9 @@ type
   ViewType* = enum
     Plain,
     Text,
-    Label
+    Label,
+    Browser,
+    Input
 
   TextView* = object
     lines*: seq[string]
@@ -36,11 +40,21 @@ type
 
   LabelView* = object
     text*: string
+
+  FileBrowser* = object
+    activePath*: string
+    items*: seq[FileItem]
+    cursorIndex*: int
   
+  InputView* = object
+    prompt*: string
+    written*: string
+    
   ViewContents* {.union.} = object
     text*: TextView
     label*: LabelView
-    scroll*: TextView
+    browser*: FileBrowser
+    input*: InputView
 
   View* = ref object
     isa*: ViewType
