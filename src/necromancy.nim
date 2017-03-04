@@ -7,7 +7,7 @@ import sets
 import parseopt2
 
 import "logger.nim"
-import "preferences.nim"
+import "settings/preferences.nim"
 
 import "models/types.nim"
 

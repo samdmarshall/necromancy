@@ -18,17 +18,21 @@ proc updatePath*(view: View, path: string): View =
     return
   view.contents.browser.activePath = path
   view.contents.browser.items = populate(path)
+  view.contents.browser.cursorIndex = 
+    if view.contents.browser.items.len > 0: 0
+    else: -1
   var row_index = 0
   while row_index < view.internalBuf.len:
     var item_name = ""
     if row_index < view.contents.browser.items.len:
       let item = view.contents.browser.items[row_index]
       item_name = item.getName()
-    var col_index = 0
+    var col_index = 3
     while col_index < view.internalBuf[row_index].len:
+      var offset = col_index - 3 # use the starting value of `col_index`
       var character: uint32
-      if col_index < item_name.len:
-        let character_repr: string = $item_name[col_index]
+      if offset < item_name.len:
+        let character_repr: string = $item_name[offset]
         discard tb_utf8_char_to_unicode(addr character, character_repr)
       else:
         character = 0

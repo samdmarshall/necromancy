@@ -82,5 +82,23 @@ type
 # ===========
 
 type
+  ColorValue* = object
+    bright*: uint16
+    normal*: uint16
+    bold*: uint16
+    underline*: uint16
+    
+  ColorMap* = object
+    default*: ColorValue
+    black*: ColorValue
+    red*: ColorValue
+    green*: ColorValue
+    yellow*: ColorValue
+    blue*: ColorValue
+    magenta*: ColorValue
+    cyan*: ColorValue
+    White*: ColorValue
+    
   Configuration* = object
     keys*: seq[UserKeyBinding]
+    colors*: ColorMap
