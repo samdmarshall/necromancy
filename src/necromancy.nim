@@ -36,7 +36,7 @@ var configuration_path: string
 if os.existsEnv("NECROMANCY_CONFIG"):
   configuration_path = os.expandTilde(os.getEnv("NECROMANCY_CONFIG"))
 else:
-  configuration_path = os.expandTilde("~/.config/necromancy/config.yml")
+  configuration_path = os.expandTilde("~/.config/necromancy/config.cfg")
 var working_directory = os.getCurrentDir()
 var enable_trace_logging = false
 

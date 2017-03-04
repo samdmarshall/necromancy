@@ -4,6 +4,7 @@
 
 import sequtils
 
+import "theme.nim"
 import "types.nim"
 import "termbox.nim"
 
@@ -21,11 +22,15 @@ const ZeroRect = Rect(origin: ZeroPoint, dimensions: ZeroSize)
 
 proc createInternalBuffer(point: Point, size: Size): seq[seq[tb_cell]] = 
   var buffer = newSeq[seq[tb_cell]]()
-  for y_index in point.y..(point.y + size.height):
+  var y_index = point.y
+  while y_index < (point.y + size.height):
     var row = newSeq[tb_cell]()
-    for x_index in point.x..(point.x + size.width):
+    var x_index = point.x
+    while x_index < (point.x + size.width):
       row.add(tb_cell())
+      inc(x_index)
     buffer.add(row)
+    inc(y_index)
   return buffer
 
 
@@ -47,7 +52,13 @@ proc createMainWindow*(): Window =
   let full_screen = Size(width: tb_width(), height: tb_height())
   var main = createViewAtPointWithSize(ZeroPoint, full_screen)
   main.name = "main-screen"
-  return Window(views: @[main])
+
+  let top_bar_rect = Size(width: tb_width(), height: 1)
+  var top_bar = createViewAtPointWithSize(ZeroPoint, top_bar_rect)
+  top_bar.name = "top-bar"
+  top_bar.setBackgroundColor(TB_BLACK)
+  
+  return Window(views: @[main, top_bar])
 
 proc createDebugView*(): View =
   let size = Size(width: tb_width(), height: 5)
