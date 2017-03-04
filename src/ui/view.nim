@@ -5,8 +5,12 @@
 import sequtils
 
 import "theme.nim"
-import "types.nim"
-import "termbox.nim"
+
+import "../termbox.nim"
+
+import "../models/types.nim"
+
+import "../events/constants.nim"
 
 # =========
 # Constants
@@ -40,7 +44,9 @@ proc createInternalBuffer(point: Point, size: Size): seq[seq[tb_cell]] =
 
 proc createViewAtPointWithSize*(point: Point, size: Size): View =
   var buffer = createInternalBuffer(point, size)
-  return View(rect: Rect(origin: point, dimensions: size), isa: Plain, internalBuf: buffer)
+  var view = View(rect: Rect(origin: point, dimensions: size), isa: Plain, internalBuf: buffer)
+  view.isa = Plain
+  return view
 
 proc createTextViewAtPointWithSize*(point: Point, size: Size): View =
   var view = createViewAtPointWithSize(point, size)
@@ -48,23 +54,49 @@ proc createTextViewAtPointWithSize*(point: Point, size: Size): View =
   view.contents.text.lines = newSeq[string]()
   return view
 
+proc createLabelViewAtPointWithSize*(point: Point, size: Size): View =
+  var view = createViewAtPointWithSize(point, size)
+  view.isa = Label
+  return view
+
 proc createMainWindow*(): Window = 
   let full_screen = Size(width: tb_width(), height: tb_height())
   var main = createViewAtPointWithSize(ZeroPoint, full_screen)
-  main.name = "main-screen"
+  main.name = ViewName_Main
 
   let top_bar_rect = Size(width: tb_width(), height: 1)
   var top_bar = createViewAtPointWithSize(ZeroPoint, top_bar_rect)
-  top_bar.name = "top-bar"
+  top_bar.name = ViewName_TopBar
   top_bar.setBackgroundColor(TB_BLACK)
-  
-  return Window(views: @[main, top_bar])
+
+  let directory_path_rect = Size(width: (tb_width() - 4), height: 1)
+  let directory_path_origin = Point(x: 4, y: 1)
+  var directory_path = createLabelViewAtPointWithSize(directory_path_origin, directory_path_rect)
+  directory_path.name = ViewName_DirectoryPath
+
+  let directory_contents_rect = Size(width: (tb_width() - 4), height: (tb_height() - 5))
+  let directory_contents_origin = Point(x: 4, y: 4)
+  var directory_contents = createTextViewAtPointWithSize(directory_contents_origin, directory_contents_rect)
+  directory_contents.name = ViewName_DirectoryContents
+
+  let bottom_bar_rect = Size(width: tb_width(), height: 1)
+  let bottom_bar_origin = Point(x: 0, y: (tb_height() - 2))
+  var bottom_bar = createViewAtPointWithSize(bottom_bar_origin, bottom_bar_rect)
+  bottom_bar.name = ViewName_BottomBar
+  bottom_bar.setBackgroundColor(TB_BLACK)
+
+  let command_prompt_rect = Size(width: tb_width(), height: 1)
+  let command_prompt_origin = Point(x: 0, y: (tb_height() - 1))
+  var command_prompt = createTextViewAtPointWithSize(command_prompt_origin, command_prompt_rect)
+  command_prompt.name = ViewName_CommandEntry
+    
+  return Window(views: @[main, top_bar, directory_path, directory_contents, command_prompt, bottom_bar])
 
 proc createDebugView*(): View =
   let size = Size(width: tb_width(), height: 5)
   let origin = Point(x: 0, y: (tb_height() - size.height))
   var text_view = createTextViewAtPointWithSize(origin, size)
-  text_view.name = "debug-console"
+  text_view.name = ViewName_DebugConsole
   return text_view
 
 proc isViewValid*(view: View): bool =
@@ -73,20 +105,20 @@ proc isViewValid*(view: View): bool =
   let height = view.rect.dimensions.height - view.rect.origin.y
   return view.rect != ZeroRect and (width != 0 or height != 0)
 
-proc isDebugView*(view: View): bool =
-  return view.name == "debug-console"
-
-proc getDebugViewIndex*(screen: Window): int =
+proc getIndexForViewWithName*(screen: Window, name: string): int =
   var index = 0
   var found_view = false
   for view in screen.views:
-    found_view = isDebugView(view)
+    found_view = (view.name == name)
     if found_view:
       break
     inc(index)
   if not found_view:
     return -1
   return index
+  
+proc getDebugViewIndex*(screen: Window): int =
+  return screen.getIndexForViewWithName(ViewName_DebugConsole)
 
 proc viewContainsPoint*(view: View, coordinate: Point): bool =
   ## Returns a boolean value of if a particular view contains a point. This

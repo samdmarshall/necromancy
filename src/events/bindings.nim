@@ -6,7 +6,7 @@ import posix
 import tables
 import sequtils
 
-import "termbox.nim"
+import "../termbox.nim"
 
 # =========
 # Constants

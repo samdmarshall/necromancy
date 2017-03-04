@@ -3,8 +3,10 @@
 # =======
 
 import "view.nim"
-import "types.nim"
-import "termbox.nim"
+
+import "../termbox.nim"
+
+import "../models/types.nim"
 
 # =========
 # Functions
@@ -13,9 +15,9 @@ import "termbox.nim"
 template writeToDebugConsole*(screen: Window, message: string) =
   var debug_index = getDebugViewIndex(screen)
   if debug_index != -1:
-    screen.views[debug_index] = writeNewDebugLine(screen.views[debug_index], message)
+    screen.views[debug_index] = writeNewTextLine(screen.views[debug_index], message)
 
-proc writeNewDebugLine*(view: View, newLine: string): View =
+proc writeNewTextLine*(view: View, newLine: string): View =
   ## writes a new line to the debug console at the bottom of the screen, will automatically 
   ## scroll the contents of the TextView as necessary 
   if (not isViewValid(view)) and view.isa == ViewType.Text:

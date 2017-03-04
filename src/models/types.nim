@@ -2,7 +2,7 @@
 # Imports
 # =======
 
-import "termbox.nim"
+import "../termbox.nim"
 
 # =====
 # Types
@@ -28,13 +28,19 @@ type
   ViewType* = enum
     Plain,
     Text,
+    Label
 
   TextView* = object
     lines*: seq[string]
     lineOffset*: int
+
+  LabelView* = object
+    text*: string
   
   ViewContents* {.union.} = object
     text*: TextView
+    label*: LabelView
+    scroll*: TextView
 
   View* = ref object
     isa*: ViewType

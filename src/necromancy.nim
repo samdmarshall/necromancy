@@ -6,12 +6,16 @@ import os
 import sets
 import parseopt2
 
-import "view.nim"
-import "types.nim"
 import "logger.nim"
-import "display.nim"
 import "preferences.nim"
-import "eventhandler.nim"
+
+import "models/types.nim"
+
+import "events/actions.nim"
+import "events/eventhandler.nim"
+
+import "ui/view.nim"
+import "ui/display.nim"
 
 # =========
 # Functions
@@ -85,6 +89,8 @@ if enable_trace_logging:
   var debug = createDebugView()
   screen.views.add(debug)
 
+screen.reloadContents()
+draw(screen)
 while processInput(screen, user_configuration):
   draw(screen)
 

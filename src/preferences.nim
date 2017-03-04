@@ -7,11 +7,10 @@ import tables
 import parsecfg
 import sequtils
 
-import "types.nim"
 import "logger.nim"
-import "actions.nim"
-import "bindings.nim"
-import "constants.nim"
+import "models/types.nim"
+import "events/bindings.nim"
+import "events/constants.nim"
 
 
 # =========

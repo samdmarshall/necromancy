@@ -2,7 +2,7 @@
 # Imports
 # =======
 
-import "types.nim"
+import "../models/types.nim"
 
 # =========
 # Functions

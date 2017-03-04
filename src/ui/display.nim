@@ -4,8 +4,9 @@
 
 import posix
 
-import "types.nim"
-import "termbox.nim"
+import "../termbox.nim"
+
+import "../models/types.nim"
 
 # =========
 # Functions

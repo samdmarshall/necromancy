@@ -2,9 +2,12 @@
 # Imports
 # =======
 
-import "types.nim"
-import "display.nim"
+import "actions.nim"
 import "constants.nim"
+
+import "../models/types.nim"
+
+import "../ui/display.nim"
 
 # =========
 # Functions
@@ -19,13 +22,13 @@ proc perform*(screen: Window, command: string, args: seq[string]): bool =
   of Command_Suspend:
     suspendDisplay()
   of Command_Up:
-    discard
+    screen.navigateUp()
   of Command_Down:
-    discard
+    screen.navigateDown()
   of Command_GoIn:
-    discard
+    screen.navigateIn()
   of Command_GoOut:
-    discard
+    screen.navigateOut()
   of Command_Prompt:
     discard
   of Command_Reload:

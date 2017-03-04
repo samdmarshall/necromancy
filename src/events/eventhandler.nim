@@ -5,15 +5,18 @@
 import tables
 import sequtils
 
-import "view.nim"
-import "types.nim"
-import "logger.nim"
 import "actions.nim"
 import "command.nim"
-import "termbox.nim"
 import "bindings.nim"
-import "textview.nim"
 import "constants.nim"
+
+import "../logger.nim"
+import "../termbox.nim"
+
+import "../models/types.nim"
+
+import "../ui/view.nim"
+import "../ui/textview.nim"
 
 # =========
 # Functions
