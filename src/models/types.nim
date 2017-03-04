@@ -97,7 +97,7 @@ type
     blue*: ColorValue
     magenta*: ColorValue
     cyan*: ColorValue
-    White*: ColorValue
+    white*: ColorValue
     
   Configuration* = object
     keys*: seq[UserKeyBinding]

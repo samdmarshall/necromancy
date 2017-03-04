@@ -23,6 +23,8 @@ proc updatePath*(view: View, path: string): View =
     else: -1
   var row_index = 0
   while row_index < view.internalBuf.len:
+    var foreground_color = TB_DEFAULT
+    var background_color = TB_DEFAULT
     var item_name = ""
     if row_index < view.contents.browser.items.len:
       let item = view.contents.browser.items[row_index]
@@ -37,8 +39,8 @@ proc updatePath*(view: View, path: string): View =
       else:
         character = 0
       ((view.internalBuf[row_index])[col_index]).ch = character
-      ((view.internalBuf[row_index])[col_index]).fg = TB_DEFAULT
-      ((view.internalBuf[row_index])[col_index]).bg = TB_DEFAULT
+      ((view.internalBuf[row_index])[col_index]).fg = foreground_color
+      ((view.internalBuf[row_index])[col_index]).bg = background_color
       inc(col_index)
     inc(row_index)
   return view

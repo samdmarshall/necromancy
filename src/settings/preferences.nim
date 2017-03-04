@@ -8,6 +8,8 @@ import parsecfg
 import sequtils
 import strutils
 
+import "color.nim"
+
 import "../logger.nim"
 
 import "../models/types.nim"
@@ -46,11 +48,8 @@ proc loadUserConfiguration*(path: string): Configuration =
     bindings.add(UserKeyBinding(key: "<scroll-down>", action: Action_Down))
 
   let color_scheme_file_name = config_data.getSectionValue("color", "theme")
-  let themes_directory = path.parentDir().joinPath("themes")
-  let theme_file_path = themes_directory.joinPath(color_scheme_file_name)
-  let color_config: Config = loadConfig(theme_file_path)
-  
+  let color_theme = loadThemeWithName(path.parentDir(), color_scheme_file_name)
 
-  var config = Configuration(keys: bindings)
+  var config = Configuration(keys: bindings, colors: color_theme)
 
-  result = config
+  return config
