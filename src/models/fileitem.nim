@@ -4,6 +4,8 @@
 
 import os
 
+import "configuration.nim"
+
 # =====
 # Types
 # =====
@@ -23,13 +25,13 @@ type FileType {.pure.} = enum
 # =========
 
 proc getFullPath*(file: FileItem): string =
-  return os.joinPath(file.parent, file.data.path)
+  return (file.parent).joinPath(file.data.path)
 
 proc getInfo*(file: FileItem): FileInfo =
-  return os.getFileInfo(getFullPath(file))
+  return getFullPath(file).getFileInfo()
 
 proc resolveFileType(file: FileItem): FileType =
-  let info = getInfo(file)
+  let info = file.getInfo()
   case file.data.kind
   of pcDir:
     return FileType.Directory
@@ -41,7 +43,7 @@ proc resolveFileType(file: FileItem): FileType =
     return FileType.Symlink
 
 proc getDecorator(file: FileItem): string =
-  case resolveFileType(file)
+  case file.resolveFileType()
   of FileType.File:
     return ""
   of FileType.Executable:
@@ -55,6 +57,17 @@ proc getDecorator(file: FileItem): string =
     except:
       expanded_path = "???"
     return " -> " & expanded_path
+
+proc getItemColor*(file: FileItem, settings: Configuration): uint16 = 
+  case file.resolveFileType()
+  of FileType.File:
+    return settings.colors.file.normal
+  of FileType.Executable:
+    return settings.colors.executable.normal
+  of FileType.Directory:
+    return settings.colors.directory.normal
+  of FileType.Symlink:
+    return settings.colors.symlink.normal
 
 proc getName*(file: FileItem): string = 
   return file.data.path & getDecorator(file)

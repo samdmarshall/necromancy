@@ -11,6 +11,7 @@ import "../termbox.nim"
 
 import "../models/types.nim"
 import "../models/fileitem.nim"
+import "../models/configuration.nim"
 
 import "../events/constants.nim"
 

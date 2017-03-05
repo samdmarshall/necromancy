@@ -9,6 +9,7 @@ import strutils
 import "../termbox.nim"
 
 import "../models/types.nim"
+import "../models/configuration.nim"
 
 # =========
 # Constants
@@ -56,28 +57,28 @@ proc parseStringAsColorValue(value: string): uint16 =
   else:
     return TB_DEFAULT
 
-proc mapValueOfKeyToColorRef(settings: Config, key: string, map: ColorMap): ptr ColorValue =
+proc mapValueOfKeyToColorRef(settings: Config, key: string, map: ColorMap): ColorValue =
   case settings.getSectionValue("theme", key).toLowerAscii()
   of Color_Default:
-    return unsafeAddr(map.default)
+    return map.default
   of Color_Black:
-    return unsafeAddr(map.black)
+    return map.black
   of Color_Red:
-    return unsafeAddr(map.red)
+    return map.red
   of Color_Green:
-    return unsafeAddr(map.green)
+    return map.green
   of Color_Yellow:
-    return unsafeAddr(map.yellow)
+    return map.yellow
   of Color_Blue:
-    return unsafeAddr(map.blue)
+    return map.blue
   of Color_Magenta:
-    return unsafeAddr(map.magenta)
+    return map.magenta
   of Color_Cyan:
-    return unsafeAddr(map.cyan)
+    return map.cyan
   of Color_White:
-    return unsafeAddr(map.white)
+    return map.white
   else:
-    return unsafeAddr(map.default)
+    return map.default
 
 proc parseColorValueFromSection(settings: Config, name: string): ColorValue =
   let normal_string = settings.getSectionValue(name, "normal")

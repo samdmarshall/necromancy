@@ -8,12 +8,13 @@ import "../termbox.nim"
 
 import "../models/types.nim"
 import "../models/fileitem.nim"
+import "../models/configuration.nim"
 
 # =========
 # Functions
 # =========
 
-proc updatePath*(view: View, path: string): View =
+proc updatePath*(view: View, path: string, settings: Configuration): View =
   if (not isViewValid(view)) and view.isa == ViewType.Browser:
     return
   view.contents.browser.activePath = path
@@ -28,6 +29,7 @@ proc updatePath*(view: View, path: string): View =
     var item_name = ""
     if row_index < view.contents.browser.items.len:
       let item = view.contents.browser.items[row_index]
+      foreground_color = item.getItemColor(settings)
       item_name = item.getName()
     var col_index = 3
     while col_index < view.internalBuf[row_index].len:

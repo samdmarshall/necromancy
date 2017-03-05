@@ -6,7 +6,10 @@ import os
 import tables
 
 import "../models/types.nim"
+import "../models/configuration.nim"
+
 import "../events/constants.nim"
+
 import "../ui/view.nim"
 import "../ui/textview.nim"
 import "../ui/labelview.nim"
@@ -42,6 +45,6 @@ proc reloadContents*(screen: Window, settings: Configuration): void =
 
   let directory_contents_index = screen.getIndexForViewWithName(ViewName_DirectoryContents)
   var directory_contents_view = screen.views[directory_contents_index]
-  directory_contents_view = directory_contents_view.updatePath(current_directory)
+  directory_contents_view = directory_contents_view.updatePath(current_directory, settings)
   screen.views[directory_contents_index] = directory_contents_view
   

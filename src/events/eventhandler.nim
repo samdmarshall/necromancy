@@ -14,6 +14,7 @@ import "../logger.nim"
 import "../termbox.nim"
 
 import "../models/types.nim"
+import "../models/configuration.nim"
 
 import "../ui/view.nim"
 import "../ui/textview.nim"

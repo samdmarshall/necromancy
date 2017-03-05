@@ -13,6 +13,7 @@ import "color.nim"
 import "../logger.nim"
 
 import "../models/types.nim"
+import "../models/configuration.nim"
 
 import "../events/bindings.nim"
 import "../events/constants.nim"
