@@ -11,28 +11,43 @@ import "../termbox.nim"
 import "../models/types.nim"
 
 # =========
+# Constants
+# =========
+
+const
+  Color_Default = "default"
+  Color_Black = "black"
+  Color_Red = "red"
+  Color_Green = "green"
+  Color_Yellow = "yellow"
+  Color_Blue = "blue"
+  Color_Magenta = "magenta"
+  Color_Cyan = "cyan"
+  Color_White = "white"
+
+# =========
 # Functions
 # =========
 
 proc parseStringAsColorValue(value: string): uint16 = 
   case value.toLowerAscii()
-  of "default":
+  of Color_Default:
     return TB_DEFAULT
-  of "black":
+  of Color_Black:
     return TB_BLACK
-  of "red":
+  of Color_Red:
     return TB_RED
-  of "green":
+  of Color_Green:
     return TB_GREEN
-  of "yellow":
+  of Color_Yellow:
     return TB_YELLOW
-  of "blue":
+  of Color_Blue:
     return TB_BLUE
-  of "magenta":
+  of Color_Magenta:
     return TB_MAGENTA
-  of "cyan":
+  of Color_Cyan:
     return TB_CYAN
-  of "white":
+  of Color_White:
     return TB_WHITE
   of "bold":
     return TB_BOLD
@@ -40,6 +55,29 @@ proc parseStringAsColorValue(value: string): uint16 =
     return TB_UNDERLINE
   else:
     return TB_DEFAULT
+
+proc mapValueOfKeyToColorRef(settings: Config, key: string, map: ColorMap): ptr ColorValue =
+  case settings.getSectionValue("theme", key).toLowerAscii()
+  of Color_Default:
+    return unsafeAddr(map.default)
+  of Color_Black:
+    return unsafeAddr(map.black)
+  of Color_Red:
+    return unsafeAddr(map.red)
+  of Color_Green:
+    return unsafeAddr(map.green)
+  of Color_Yellow:
+    return unsafeAddr(map.yellow)
+  of Color_Blue:
+    return unsafeAddr(map.blue)
+  of Color_Magenta:
+    return unsafeAddr(map.magenta)
+  of Color_Cyan:
+    return unsafeAddr(map.cyan)
+  of Color_White:
+    return unsafeAddr(map.white)
+  else:
+    return unsafeAddr(map.default)
 
 proc parseColorValueFromSection(settings: Config, name: string): ColorValue =
   let normal_string = settings.getSectionValue(name, "normal")
@@ -52,30 +90,28 @@ proc parseColorValueFromSection(settings: Config, name: string): ColorValue =
 
   return ColorValue(normal: normal_color, bold: bold_color, underline: underline_color)
 
-proc loadThemeWithName*(prefs_dir: string, theme_name: string): ColorMap =
+proc loadThemeWithName*(prefs_dir: string, theme_name: string): ColorTheme =
   let themes_directory = prefs_dir.joinPath("themes/")
   let theme_file_path = themes_directory.joinPath(theme_name)
   let color_config: Config = loadConfig(theme_file_path)
 
   
-  let default = color_config.parseColorValueFromSection("default")
-  let black = color_config.parseColorValueFromSection("black")
-  let red = color_config.parseColorValueFromSection("red")
-  let green = color_config.parseColorValueFromSection("green")
-  let yellow = color_config.parseColorValueFromSection("yellow")
-  let blue = color_config.parseColorValueFromSection("blue")
-  let magenta = color_config.parseColorValueFromSection("magenta")
-  let cyan = color_config.parseColorValueFromSection("cyan")
-  let white = color_config.parseColorValueFromSection("white")
+  let default = color_config.parseColorValueFromSection(Color_Default)
+  let black = color_config.parseColorValueFromSection(Color_Black)
+  let red = color_config.parseColorValueFromSection(Color_Red)
+  let green = color_config.parseColorValueFromSection(Color_Green)
+  let yellow = color_config.parseColorValueFromSection(Color_Yellow)
+  let blue = color_config.parseColorValueFromSection(Color_Blue)
+  let magenta = color_config.parseColorValueFromSection(Color_Magenta)
+  let cyan = color_config.parseColorValueFromSection(Color_Cyan)
+  let white = color_config.parseColorValueFromSection(Color_White)
   
-  return ColorMap(
-    default: default, 
-    black: black, 
-    red: red, 
-    green: green, 
-    yellow: yellow, 
-    blue: blue, 
-    magenta: magenta, 
-    cyan: cyan, 
-    white: white
-  )
+  let color_mapping = ColorMap(default: default, black: black, red: red, green: green, yellow: yellow, blue: blue, magenta: magenta, cyan: cyan, white: white)
+
+  var theme = ColorTheme(map: color_mapping)
+  theme.file = color_config.mapValueOfKeyToColorRef("file", color_mapping)
+  theme.directory = color_config.mapValueOfKeyToColorRef("directory", color_mapping)
+  theme.executable = color_config.mapValueOfKeyToColorRef("executable", color_mapping)
+  theme.symlink = color_config.mapValueOfKeyToColorRef("symlink", color_mapping)
+  
+  return theme

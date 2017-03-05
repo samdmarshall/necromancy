@@ -88,7 +88,7 @@ type
     bold*: uint16
     underline*: uint16
     
-  ColorMap* = object
+  ColorMap* {.final.} = object
     default*: ColorValue
     black*: ColorValue
     red*: ColorValue
@@ -98,7 +98,15 @@ type
     magenta*: ColorValue
     cyan*: ColorValue
     white*: ColorValue
-    
+
+  
+  ColorTheme* = object
+    map*: ColorMap
+    file*: ptr ColorValue
+    directory*: ptr ColorValue
+    executable*: ptr ColorValue
+    symlink*: ptr ColorValue
+     
   Configuration* = object
     keys*: seq[UserKeyBinding]
-    colors*: ColorMap
+    colors*: ColorTheme

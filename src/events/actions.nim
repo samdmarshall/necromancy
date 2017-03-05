@@ -32,7 +32,7 @@ proc navigateOut*(screen: Window): void =
   var directory_path_view = screen.views[directory_path_index]
 
 
-proc reloadContents*(screen: Window): void =
+proc reloadContents*(screen: Window, settings: Configuration): void =
   let current_directory = getEnv("PWD")
   
   let directory_path_index = screen.getIndexForViewWithName(ViewName_DirectoryPath)
