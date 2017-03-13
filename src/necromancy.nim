@@ -22,7 +22,7 @@ import "ui/display.nim"
 # =========
 
 proc progName(): string =
-  result = os.extractFilename(os.getAppFilename())
+  result = getAppFilename().extractFilename()
 
 proc usage(): void = 
   echo("usage: " & progName() & " [-v|--version] [-h|--help] [--config:path] [--trace] [directory path]")
@@ -37,14 +37,14 @@ proc versionInfo(): void =
 # ===========================================
 
 var configuration_path: string
-if os.existsEnv("NECROMANCY_CONFIG"):
-  configuration_path = os.expandTilde(os.getEnv("NECROMANCY_CONFIG"))
+if existsEnv("NECROMANCY_CONFIG"):
+  configuration_path = getEnv("NECROMANCY_CONFIG").expandTilde()
 else:
-  configuration_path = os.expandTilde("~/.config/necromancy/config.cfg")
-var working_directory = os.getCurrentDir()
+  configuration_path = expandTilde("~/.config/necromancy/config.cfg")
+var working_directory = getCurrentDir()
 var enable_trace_logging = false
 
-for kind, key, value in parseopt2.getopt():
+for kind, key, value in getopt():
   case kind
   of cmdLongOption, cmdShortOption:
     case key
@@ -53,13 +53,13 @@ for kind, key, value in parseopt2.getopt():
     of "version", "v":
       versionInfo()
     of "config":
-      configuration_path = os.expandTilde(value)
+      configuration_path = expandTilde(value)
     of "trace":
       enable_trace_logging = true
     else:
       discard
   of cmdArgument:
-    working_directory = os.expandTilde(key)
+    working_directory = expandTilde(key)
   else:
     discard
 
@@ -73,8 +73,8 @@ if not configuration_path.fileExists():
   echo("    * the environment variable `NECROMANCY_CONFIG`")
   quit(QuitFailure)
 
-let configuration_full_path = os.expandFilename(configuration_path)
-let configuration_directory = os.parentDir(configuration_full_path)
+let configuration_full_path = configuration_path.expandFilename()
+let configuration_directory = configuration_full_path.parentDir()
 
 initiateLogger(configuration_directory, enable_trace_logging)
 
@@ -89,10 +89,10 @@ if enable_trace_logging:
   var debug = createDebugView()
   screen.views.add(debug)
 
-screen.reloadContents(user_configuration)
-draw(screen)
-while processInput(screen, user_configuration):
-  draw(screen)
+screen.reloadContents(user_configuration, working_directory)
+screen.draw()
+while screen.processInput(user_configuration):
+  screen.draw()
 
 # shutting down the screen
 shutdownDisplay()

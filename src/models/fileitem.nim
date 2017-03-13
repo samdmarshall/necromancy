@@ -72,9 +72,10 @@ proc getItemColor*(file: FileItem, settings: Configuration): uint16 =
 proc getName*(file: FileItem): string = 
   return file.data.path & getDecorator(file)
 
-proc populate*(directory: string): seq[FileItem] = 
+proc populate*(directory: string, ignored: seq[string]): seq[FileItem] = 
   var items = newSeq[FileItem]()
   for item in os.walkDir(directory, relative = true):
-    let fi = FileItem(parent: directory, data: item)
-    items.add(fi)
+    if item.path notin ignored:
+      let fi = FileItem(parent: directory, data: item)
+      items.add(fi)
   return items

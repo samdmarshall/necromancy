@@ -41,3 +41,4 @@ type
   Configuration* = object
     keys*: seq[UserKeyBinding]
     colors*: ColorTheme
+    ignoredItems*: seq[string]

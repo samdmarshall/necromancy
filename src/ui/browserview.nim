@@ -18,7 +18,7 @@ proc updatePath*(view: View, path: string, settings: Configuration): View =
   if (not isViewValid(view)) and view.isa == ViewType.Browser:
     return
   view.contents.browser.activePath = path
-  view.contents.browser.items = populate(path)
+  view.contents.browser.items = populate(path, settings.ignoredItems)
   view.contents.browser.cursorIndex = 
     if view.contents.browser.items.len > 0: 0
     else: -1

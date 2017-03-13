@@ -67,7 +67,7 @@ proc createBrowserViewAtPointWithSize*(point: Point, size: Size): View =
   view.isa = Browser
   let current_path = getEnv("PWD")
   view.contents.browser.activePath = current_path
-  view.contents.browser.items = populate(current_path)
+  view.contents.browser.items = populate(current_path, @[])
   return view
 
 proc createInputViewAtPointWithSize*(point: Point, size: Size): View =
