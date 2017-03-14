@@ -52,7 +52,7 @@ proc loadUserConfiguration*(path: string): Configuration =
   let color_theme = loadThemeWithName(path.parentDir(), color_scheme_file_name)
 
   let raw_items = config_data.getSectionValue("ignore", "items")
-  let items = raw_items.split("\n")
+  let items: seq[string] = raw_items.split("\n")
 
   var config = Configuration(keys: bindings, colors: color_theme, ignoredItems: items)
 

@@ -56,7 +56,7 @@ type
     prompt*: string
     written*: string
     
-  ViewContents* {.union.} = object
+  ViewContents* = object
     text*: TextView
     label*: LabelView
     browser*: FileBrowser
