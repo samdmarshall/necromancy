@@ -70,6 +70,17 @@ proc createBrowserViewAtPointWithSize*(point: Point, size: Size): View =
   view.contents.browser.items = populate(current_path, @[])
   return view
 
+proc createSelectorViewFromBrowser*(browser: View): View =
+  let origin = Point(x: browser.rect.origin.x - 2, y: browser.rect.origin.y)
+  let size = Size(width: 1, height: browser.rect.dimensions.height)
+  var view = createViewAtPointWithSize(origin, size)
+  view.isa = Selector
+  view.contents.selector.cursor = ">"
+  view.contents.selector.count = (browser.contents.browser.items.len - 1)
+  if view.contents.selector.count == 0:
+    view.contents.selector.index = -1
+  return view
+
 proc createInputViewAtPointWithSize*(point: Point, size: Size): View =
   var view = createViewAtPointWithSize(point, size)
   view.isa = Input
@@ -96,6 +107,9 @@ proc createMainWindow*(): Window =
   var directory_contents = createTextViewAtPointWithSize(directory_contents_origin, directory_contents_rect)
   directory_contents.name = ViewName_DirectoryContents
 
+  var selector = createSelectorViewFromBrowser(directory_contents)
+  selector.name = ViewName_ItemSelector
+
   let bottom_bar_rect = Size(width: tb_width(), height: 1)
   let bottom_bar_origin = Point(x: 0, y: (tb_height() - 2))
   var bottom_bar = createViewAtPointWithSize(bottom_bar_origin, bottom_bar_rect)
@@ -107,7 +121,7 @@ proc createMainWindow*(): Window =
   var command_prompt = createInputViewAtPointWithSize(command_prompt_origin, command_prompt_rect)
   command_prompt.name = ViewName_CommandEntry
     
-  return Window(views: @[main, top_bar, directory_path, directory_contents, command_prompt, bottom_bar])
+  return Window(views: @[main, top_bar, directory_path, directory_contents, selector,  command_prompt, bottom_bar])
 
 proc createDebugView*(): View =
   let size = Size(width: tb_width(), height: 5)

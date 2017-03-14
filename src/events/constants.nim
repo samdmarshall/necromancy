@@ -50,6 +50,7 @@ const
   ViewName_TopBar* = "top-bar"
   ViewName_DirectoryPath* = "directory-path"
   ViewName_DirectoryContents* = "directory-contents"
+  ViewName_ItemSelector* = "file-selector"
   ViewName_BottomBar* = "bottom-bar"
   ViewName_CommandEntry* = "command-prompt"
   ViewName_DebugConsole* = "debug-console"

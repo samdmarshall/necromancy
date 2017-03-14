@@ -5,6 +5,8 @@
 import "actions.nim"
 import "constants.nim"
 
+import "../logger.nim"
+
 import "../models/types.nim"
 
 import "../ui/display.nim"
@@ -14,6 +16,7 @@ import "../ui/display.nim"
 # =========
 
 proc perform*(screen: Window, command: string, args: seq[string]): bool = 
+  Logger(Debug, "exec '" & command & "' with arguments: " & $args)
   case command
   of Command_Help:
     discard

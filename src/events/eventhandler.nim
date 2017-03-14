@@ -38,14 +38,18 @@ proc processInput*(screen: Window, config: Configuration): bool =
   else:
     discard
   if bound_key.len > 0:
-    let found_mapped_actions = sequtils.filter(config.keys, proc(x: UserKeyBinding): bool = (x.key == bound_key))
+    var found_mapped_actions = newSeq[UserKeyBinding]()
+    for item in config.keys:
+      if item.key == bound_key:
+        found_mapped_actions.add(item)
     if found_mapped_actions.len > 0:
       if found_mapped_actions.len > 1:
         Logger(Warn, "this key has more than one binding associated with it, the last one defined in the config file will be used")
       mapped_action = found_mapped_actions[^1].action
-  if mapped_action in CommandMap:
+  if CommandMap.hasKey(mapped_action):
     let command_string: string = CommandMap[mapped_action]
-    return command.perform(screen, command_string, @[])
+    let command_args = newSeq[string]()
+    return screen.perform(command_string, command_args)
   else:
     Logger(Warn, "unknown command!")
   return true

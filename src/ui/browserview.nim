@@ -14,6 +14,10 @@ import "../models/configuration.nim"
 # Functions
 # =========
 
+proc updateCursor*(view: View, index: int): View =
+  view.contents.browser.cursorIndex = index
+  return view
+
 proc updatePath*(view: View, path: string, settings: Configuration): View =
   if (not isViewValid(view)) and view.isa == ViewType.Browser:
     return
@@ -34,12 +38,10 @@ proc updatePath*(view: View, path: string, settings: Configuration): View =
     var col_index = 3
     while col_index < view.internalBuf[row_index].len:
       var offset = col_index - 3 # use the starting value of `col_index`
-      var character: uint32
+      var character: uint32 = 0
       if offset < item_name.len:
         let character_repr: string = $item_name[offset]
         discard tb_utf8_char_to_unicode(addr character, character_repr)
-      else:
-        character = 0
       ((view.internalBuf[row_index])[col_index]).ch = character
       ((view.internalBuf[row_index])[col_index]).fg = foreground_color
       ((view.internalBuf[row_index])[col_index]).bg = background_color

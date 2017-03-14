@@ -32,6 +32,7 @@ type
     Text,
     Label,
     Browser,
+    Selector,
     Input
 
   TextView* = object
@@ -45,6 +46,11 @@ type
     activePath*: string
     items*: seq[FileItem]
     cursorIndex*: int
+
+  SelectorView* = object
+    cursor*: string
+    count*: int
+    index*: int
   
   InputView* = object
     prompt*: string
@@ -54,6 +60,7 @@ type
     text*: TextView
     label*: LabelView
     browser*: FileBrowser
+    selector*: SelectorView
     input*: InputView
 
   View* = ref object
