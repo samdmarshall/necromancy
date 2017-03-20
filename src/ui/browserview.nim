@@ -15,8 +15,15 @@ import "../models/configuration.nim"
 # =========
 
 proc updateCursor*(view: View, index: int): View =
+  if (not isViewValid(view)) and view.isa == ViewType.Browser:
+    return
   view.contents.browser.cursorIndex = index
   return view
+
+proc getActivePath*(view: View): string =
+  if (not isViewValid(view)) and view.isa == ViewType.Browser:
+    return
+  return view.contents.browser.activePath
 
 proc updatePath*(view: View, path: string, settings: Configuration): View =
   if (not isViewValid(view)) and view.isa == ViewType.Browser:

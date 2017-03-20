@@ -49,7 +49,7 @@ proc processInput*(screen: Window, config: Configuration): bool =
   if CommandMap.hasKey(mapped_action):
     let command_string: string = CommandMap[mapped_action]
     let command_args = newSeq[string]()
-    return screen.perform(command_string, command_args)
+    return screen.perform(config, command_string, command_args)
   else:
     Logger(Warn, "unknown command!")
   return true

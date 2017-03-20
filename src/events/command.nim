@@ -8,6 +8,7 @@ import "constants.nim"
 import "../logger.nim"
 
 import "../models/types.nim"
+import "../models/configuration.nim"
 
 import "../ui/display.nim"
 
@@ -15,7 +16,7 @@ import "../ui/display.nim"
 # Functions
 # =========
 
-proc perform*(screen: Window, command: string, args: seq[string]): bool = 
+proc perform*(screen: Window, settings: Configuration, command: string, args: seq[string]): bool = 
   Logger(Debug, "exec '" & command & "' with arguments: " & $args)
   case command
   of Command_Help:
@@ -29,9 +30,9 @@ proc perform*(screen: Window, command: string, args: seq[string]): bool =
   of Command_Down:
     screen.navigateDown()
   of Command_GoIn:
-    screen.navigateIn()
+    screen.navigateIn(settings)
   of Command_GoOut:
-    screen.navigateOut()
+    screen.navigateOut(settings)
   of Command_Prompt:
     discard
   of Command_Reload:

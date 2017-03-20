@@ -42,15 +42,19 @@ proc navigateDown*(screen: Window): void =
     screen.views[browser_index] = browser.updateCursor(selector_view.contents.selector.index)
   screen.views[selector_index] = selector_view
 
-proc navigateIn*(screen: Window): void = 
-  # let directory_path_index = screen.getIndexForViewWithName(ViewName_DirectoryPath)
-  # var directory_path_view = screen.views[directory_path_index]
-  return
+proc navigateIn*(screen: Window, settings: Configuration): void = 
+  let browser_index = screen.getIndexForViewWithName(ViewName_DirectoryPath)
+  var browser = screen.views[browser_index]
+  
 
-proc navigateOut*(screen: Window): void = 
-  # let directory_path_index = screen.getIndexForViewWithName(ViewName_DirectoryPath)
-  # var directory_path_view = screen.views[directory_path_index]
-  return
+proc navigateOut*(screen: Window, settings: Configuration): void = 
+  let browser_index = screen.getIndexForViewWithName(ViewName_DirectoryPath)
+  var browser = screen.views[browser_index]
+  let active_path = browser.getActivePath()
+  if not active_path.isRootDir():
+    let parent_path = active_path.parentDir()
+    browser = browser.updatePath(parent_path, settings)
+    screen.views[browser_index] = browser
 
 proc reloadContents*(screen: Window, settings: Configuration, directory: string): void =
   let current_directory = directory.expandTilde()
