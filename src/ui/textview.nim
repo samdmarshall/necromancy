@@ -13,9 +13,10 @@ import "../models/types.nim"
 # =========
 
 template writeToDebugConsole*(screen: Window, message: string) =
-  var debug_index = getDebugViewIndex(screen)
+  var debug_index = screen.getDebugViewIndex()
   if debug_index != -1:
-    screen.views[debug_index] = writeNewTextLine(screen.views[debug_index], message)
+    let debug_view = screen.views[debug_index]
+    screen.views[debug_index] = debug_view.writeNewTextLine(message)
 
 proc writeNewTextLine*(view: View, newLine: string): View =
   ## writes a new line to the debug console at the bottom of the screen, will automatically 

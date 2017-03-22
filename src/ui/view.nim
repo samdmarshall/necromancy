@@ -151,7 +151,7 @@ proc getIndexForViewWithName*(screen: Window, name: string): int =
 proc getDebugViewIndex*(screen: Window): int =
   return screen.getIndexForViewWithName(ViewName_DebugConsole)
 
-proc viewContainsPoint*(view: View, coordinate: Point): bool =
+proc containsPoint*(view: View, coordinate: Point): bool =
   ## Returns a boolean value of if a particular view contains a point. This
   ## is used to determine which view a mouse-click should interact with.
 
@@ -191,7 +191,7 @@ proc viewIndexForPoint*(screen: Window, point: Point): int =
   var index = 0
   var found_view = false
   for view in screen.views:
-    found_view = viewContainsPoint(view, point)
+    found_view = view.containsPoint(point)
     if found_view:
       break
     inc(index)

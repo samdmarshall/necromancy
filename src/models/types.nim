@@ -44,6 +44,7 @@ type
 
   FileBrowser* = object
     activePath*: string
+    displayOffset*: int
     items*: seq[FileItem]
     cursorIndex*: int
 

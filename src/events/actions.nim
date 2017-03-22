@@ -8,11 +8,13 @@ import tables
 import "../logger.nim"
 
 import "../models/types.nim"
+import "../models/fileitem.nim"
 import "../models/configuration.nim"
 
 import "../events/constants.nim"
 
 import "../ui/view.nim"
+import "../ui/display.nim"
 import "../ui/textview.nim"
 import "../ui/labelview.nim"
 import "../ui/browserview.nim"
@@ -45,7 +47,6 @@ proc navigateDown*(screen: Window): void =
 proc navigateIn*(screen: Window, settings: Configuration): void = 
   let browser_index = screen.getIndexForViewWithName(ViewName_DirectoryPath)
   var browser = screen.views[browser_index]
-  
 
 proc navigateOut*(screen: Window, settings: Configuration): void = 
   let browser_index = screen.getIndexForViewWithName(ViewName_DirectoryPath)
@@ -56,7 +57,7 @@ proc navigateOut*(screen: Window, settings: Configuration): void =
     browser = browser.updatePath(parent_path, settings)
     screen.views[browser_index] = browser
 
-proc reloadContents*(screen: Window, settings: Configuration, directory: string): void =
+proc reloadContents*(screen: Window, settings: Configuration, directory: string): Window =
   let current_directory = directory.expandTilde()
   
   let directory_path_index = screen.getIndexForViewWithName(ViewName_DirectoryPath)
@@ -72,3 +73,7 @@ proc reloadContents*(screen: Window, settings: Configuration, directory: string)
   let selector_index = screen.getIndexForViewWithName(ViewName_ItemSelector)
   screen.views[selector_index] = createSelectorViewFromBrowser(directory_contents_view)
   screen.views[selector_index].name = ViewName_ItemSelector
+
+  screen.draw()
+  
+  return screen

@@ -89,8 +89,7 @@ if enable_trace_logging:
   var debug = createDebugView()
   screen.views.add(debug)
 
-screen.reloadContents(user_configuration, working_directory)
-screen.draw()
+screen = screen.reloadContents(user_configuration, working_directory)
 while screen.processInput(user_configuration):
   screen.draw()
 

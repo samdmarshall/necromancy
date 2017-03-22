@@ -33,7 +33,7 @@ proc updatePath*(view: View, path: string, settings: Configuration): View =
   view.contents.browser.cursorIndex = 
     if view.contents.browser.items.len > 0: 0
     else: -1
-  var row_index = 0
+  var row_index = view.contents.browser.displayOffset
   while row_index < view.internalBuf.len:
     var foreground_color = TB_DEFAULT
     var background_color = TB_DEFAULT
