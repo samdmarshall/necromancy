@@ -24,7 +24,7 @@ import "ui/display.nim"
 proc progName(): string =
   result = getAppFilename().extractFilename()
 
-proc usage(): void = 
+proc usage(): void =
   echo("usage: " & progName() & " [-v|--version] [-h|--help] [--config:path] [--trace] [directory path]")
   quit(QuitSuccess)
 
