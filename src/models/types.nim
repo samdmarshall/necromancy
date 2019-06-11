@@ -16,12 +16,12 @@ import termbox
 
 type
   Point* = object
-    x*: cint
-    y*: cint
+    x*: cuint
+    y*: cuint
 
   Size* = object
-    width*: cint
-    height*: cint
+    width*: cuint
+    height*: cuint
 
   Rect* = object
     origin*: Point
@@ -37,21 +37,21 @@ type
 
   TextView* = object
     lines*: seq[string]
-    lineOffset*: int
+    lineOffset*: cint
 
   LabelView* = object
     text*: string
 
   FileBrowser* = object
     activePath*: string
-    displayOffset*: int
+    displayOffset*: cint
     items*: seq[FileItem]
-    cursorIndex*: int
+    cursorIndex*: cint
 
   SelectorView* = object
     cursor*: string
-    count*: int
-    index*: int
+    count*: cint
+    index*: cint
   
   InputView* = object
     prompt*: string

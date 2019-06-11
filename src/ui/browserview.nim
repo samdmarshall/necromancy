@@ -14,7 +14,7 @@ import "../models/configuration.nim"
 # Functions
 # =========
 
-proc updateCursor*(view: View, index: int): View =
+proc updateCursor*(view: View, index: cint): View =
   if (not isViewValid(view)) and view.isa == ViewType.Browser:
     return
   view.contents.browser.cursorIndex = index
@@ -35,8 +35,8 @@ proc updatePath*(view: View, path: string, settings: Configuration): View =
     else: -1
   var row_index = view.contents.browser.displayOffset
   while row_index < view.internalBuf.len:
-    var foreground_color = TB_DEFAULT
-    var background_color = TB_DEFAULT
+    var foreground_color: uint16 = TB_DEFAULT
+    var background_color: uint16 = TB_DEFAULT
     var item_name = ""
     if row_index < view.contents.browser.items.len:
       let item = view.contents.browser.items[row_index]
@@ -48,7 +48,7 @@ proc updatePath*(view: View, path: string, settings: Configuration): View =
       var character: uint32 = 0
       if offset < item_name.len:
         let character_repr: string = $item_name[offset]
-        discard tb_utf8_char_to_unicode(addr character, character_repr)
+        discard utf8_char_to_unicode(addr character, character_repr)
       ((view.internalBuf[row_index])[col_index]).ch = character
       ((view.internalBuf[row_index])[col_index]).fg = foreground_color
       ((view.internalBuf[row_index])[col_index]).bg = background_color

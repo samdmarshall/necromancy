@@ -38,7 +38,7 @@ proc writeNewTextLine*(view: View, newLine: string): View =
       var character: uint32 = 0
       if chr_index < view.contents.text.lines[line_index].len:
         let character_repr: string = $view.contents.text.lines[line_index][chr_index]
-        discard tb_utf8_char_to_unicode(addr character, character_repr)
+        discard utf8_char_to_unicode(addr character, character_repr)
       ((view.internalBuf[row])[chr_index]).ch = character
       ((view.internalBuf[row])[chr_index]).fg = TB_DEFAULT
       ((view.internalBuf[row])[chr_index]).bg = TB_DEFAULT

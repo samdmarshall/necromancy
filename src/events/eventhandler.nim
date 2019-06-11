@@ -26,9 +26,9 @@ import "../ui/textview.nim"
 proc processInput*(screen: Window, config: Configuration): bool =
   var mapped_action = ""
   var event: tb_event
-  discard tb_poll_event(addr event)
+  discard poll_event(addr event)
   let bound_key = translate(event)
-  case event.`type`
+  case event.kind
   of TB_EVENT_MOUSE:
     discard
   of TB_EVENT_KEY:

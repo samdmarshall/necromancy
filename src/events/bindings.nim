@@ -88,7 +88,8 @@ const
 # Globals
 # =======
 
-const BindingMap: Table[uint16, string] = {
+#const BindingMap: Table[uint16, string] = {
+const BindingMap = {
   TB_KEY_F1: Key_F1,
   TB_KEY_F2: Key_F2,
   TB_KEY_F3: Key_F3,
@@ -158,7 +159,8 @@ const BindingMap: Table[uint16, string] = {
   
 }.toTable
 
-const AsciiBindingMap: Table[uint32, string] = {
+#const AsciiBindingMap: Table[uint32, string] = {
+const AsciiBindingMap = {
   uint32(33): "!",
   uint32(34): "\"",
   uint32(35): "#",
@@ -261,7 +263,7 @@ const AsciiBindingMap: Table[uint32, string] = {
 proc translate*(input: tb_event): string = 
   if input.ch in AsciiBindingMap:
     return AsciiBindingMap[input.ch]
-  elif input.key in BindingMap:
-    return BindingMap[input.key]
+  elif int(input.key) in BindingMap:
+    return BindingMap[int(input.key)]
   return ""
 

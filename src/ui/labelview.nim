@@ -21,7 +21,7 @@ proc setText*(view: View, display: string): View =
     var character: uint32 = 0
     if chr_index < view.contents.label.text.len:
       let character_repr: string = $view.contents.label.text[chr_index]
-      discard tb_utf8_char_to_unicode(addr character, character_repr)
+      discard utf8_char_to_unicode(addr character, character_repr)
     ((view.internalBuf[0])[chr_index]).ch = character
     ((view.internalBuf[0])[chr_index]).fg = TB_DEFAULT
     ((view.internalBuf[0])[chr_index]).bg = TB_DEFAULT

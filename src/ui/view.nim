@@ -76,7 +76,7 @@ proc createSelectorViewFromBrowser*(browser: View): View =
   var view = createViewAtPointWithSize(origin, size)
   view.isa = Selector
   view.contents.selector.cursor = ">"
-  view.contents.selector.count = (browser.contents.browser.items.len - 1)
+  view.contents.selector.count = cint(browser.contents.browser.items.len - 1)
   if view.contents.selector.count == 0:
     view.contents.selector.index = -1
   return view
@@ -88,21 +88,21 @@ proc createInputViewAtPointWithSize*(point: Point, size: Size): View =
   return view
 
 proc createMainWindow*(): Window = 
-  let full_screen = Size(width: tb_width(), height: tb_height())
+  let full_screen = Size(width: width(), height: height())
   var main = createViewAtPointWithSize(ZeroPoint, full_screen)
   main.name = ViewName_Main
 
-  let top_bar_rect = Size(width: tb_width(), height: 1)
+  let top_bar_rect = Size(width: width(), height: 1)
   var top_bar = createViewAtPointWithSize(ZeroPoint, top_bar_rect)
   top_bar.name = ViewName_TopBar
   top_bar.setBackgroundColor(TB_BLACK)
 
-  let directory_path_rect = Size(width: (tb_width() - 4), height: 1)
+  let directory_path_rect = Size(width: (width() - 4), height: 1)
   let directory_path_origin = Point(x: 4, y: 1)
   var directory_path = createLabelViewAtPointWithSize(directory_path_origin, directory_path_rect)
   directory_path.name = ViewName_DirectoryPath
 
-  let directory_contents_rect = Size(width: (tb_width() - 4), height: (tb_height() - 5))
+  let directory_contents_rect = Size(width: (width() - 4), height: (height() - 5))
   let directory_contents_origin = Point(x: 4, y: 4)
   var directory_contents = createTextViewAtPointWithSize(directory_contents_origin, directory_contents_rect)
   directory_contents.name = ViewName_DirectoryContents
@@ -110,22 +110,22 @@ proc createMainWindow*(): Window =
   var selector = createSelectorViewFromBrowser(directory_contents)
   selector.name = ViewName_ItemSelector
 
-  let bottom_bar_rect = Size(width: tb_width(), height: 1)
-  let bottom_bar_origin = Point(x: 0, y: (tb_height() - 2))
+  let bottom_bar_rect = Size(width: width(), height: 1)
+  let bottom_bar_origin = Point(x: 0, y: (height() - 2))
   var bottom_bar = createViewAtPointWithSize(bottom_bar_origin, bottom_bar_rect)
   bottom_bar.name = ViewName_BottomBar
   bottom_bar.setBackgroundColor(TB_BLACK)
 
-  let command_prompt_rect = Size(width: tb_width(), height: 1)
-  let command_prompt_origin = Point(x: 0, y: (tb_height() - 1))
+  let command_prompt_rect = Size(width: width(), height: 1)
+  let command_prompt_origin = Point(x: 0, y: (height() - 1))
   var command_prompt = createInputViewAtPointWithSize(command_prompt_origin, command_prompt_rect)
   command_prompt.name = ViewName_CommandEntry
     
   return Window(views: @[main, top_bar, directory_path, directory_contents, selector,  command_prompt, bottom_bar])
 
 proc createDebugView*(): View =
-  let size = Size(width: tb_width(), height: 5)
-  let origin = Point(x: 0, y: (tb_height() - size.height))
+  let size = Size(width: width(), height: 5)
+  let origin = Point(x: 0, y: (height() - size.height))
   var text_view = createTextViewAtPointWithSize(origin, size)
   text_view.name = ViewName_DebugConsole
   return text_view
