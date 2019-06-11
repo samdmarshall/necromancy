@@ -11,7 +11,7 @@ import "bindings.nim"
 import "constants.nim"
 
 import "../logger.nim"
-import "../termbox.nim"
+import termbox
 
 import "../models/types.nim"
 import "../models/configuration.nim"

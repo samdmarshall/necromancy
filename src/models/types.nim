@@ -4,7 +4,7 @@
 
 import "fileitem.nim"
 
-import "../termbox.nim"
+import termbox
 
 # =====
 # Types

@@ -7,7 +7,7 @@ import sequtils
 
 import "theme.nim"
 
-import "../termbox.nim"
+import termbox
 
 import "../models/types.nim"
 import "../models/fileitem.nim"

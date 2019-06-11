@@ -6,7 +6,7 @@ import os
 import parsecfg
 import strutils
 
-import "../termbox.nim"
+import termbox
 
 import "../models/types.nim"
 import "../models/configuration.nim"

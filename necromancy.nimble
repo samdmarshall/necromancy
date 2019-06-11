@@ -12,3 +12,8 @@ skipExt = @["nim"]
 
 # Dependencies
 requires "nim >= 0.14.0"
+requires "termbox"
+requires "dashing >= 0.1.1"
+requires "spinny"
+requires "fab >= 0.4.3"
+requires "progress >= 1.1.1"

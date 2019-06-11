@@ -8,7 +8,7 @@ import "view.nim"
 
 import "../logger.nim"
 
-import "../termbox.nim"
+import termbox
 
 import "../models/types.nim"
 
