@@ -16,7 +16,32 @@ import "../ui/display.nim"
 # Functions
 # =========
 
-proc perform*(screen: Window, settings: Configuration, command: string, args: seq[string]): bool = 
+proc action*(settings: Configuration, command: string, args: seq[string]): bool =
+  Logger(Debug, "exec '" & command & "' with arguments: " & $args)
+  case command
+  of Command_Help:
+    discard
+  of Command_Quit:
+    return false
+  of Command_Suspend:
+    discard
+  of Command_Up:
+    echo "navigate prev"
+  of Command_Down:
+    echo "navigate next"
+  of Command_GoIn:
+    echo "navigate down"
+  of Command_GoOut:
+    echo "navigate up"
+  of Command_Prompt:
+    discard
+  of Command_Reload:
+    echo "redraw"
+  else:
+    discard
+  return true
+
+proc perform*(screen: Window, settings: Configuration, command: string, args: seq[string]): bool =
   Logger(Debug, "exec '" & command & "' with arguments: " & $args)
   case command
   of Command_Help:

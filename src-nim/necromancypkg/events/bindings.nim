@@ -47,7 +47,7 @@ const
   Key_CtrlUnderscore = "<ctrl-_>"
   Key_Space = "<space>"
   Key_Delete = "<delete>"
-  
+
   Key_Ctrl2 = "<ctrl-2>"
   Key_Ctrl3 = "<ctrl-3>"
   Key_Ctrl4 = "<ctrl-4>"
@@ -55,7 +55,7 @@ const
   Key_Ctrl6 = "<ctrl-6>"
   Key_Ctrl7 = "<ctrl-7>"
   Key_Ctrl8 = "<ctrl-8>"
-  
+
   Key_CtrlA = "<ctrl-a>"
   Key_CtrlB = "<ctrl-b>"
   Key_CtrlC = "<ctrl-c>"
@@ -82,7 +82,7 @@ const
   Key_CtrlX = "<ctrl-x>"
   Key_CtrlY = "<ctrl-y>"
   Key_CtrlZ = "<ctrl-z>"
-  
+
 
 # =======
 # Globals
@@ -112,7 +112,7 @@ const BindingMap = {
   TB_KEY_MOUSE_WHEEL_DOWN: Key_MouseWheelDown,
 
   TB_KEY_CTRL_TILDE: Key_CtrlTilde,
-  TB_KEY_CTRL_2: Key_Ctrl2, 
+  TB_KEY_CTRL_2: Key_Ctrl2,
   TB_KEY_CTRL_A: Key_CtrlA,
   TB_KEY_CTRL_B: Key_CtrlB,
   TB_KEY_CTRL_C: Key_CtrlC,
@@ -156,7 +156,7 @@ const BindingMap = {
   TB_KEY_SPACE: Key_Space,
   TB_KEY_BACKSPACE2: Key_Delete,
   TB_KEY_CTRL_8: Key_Ctrl8,
-  
+
 }.toTable
 
 #const AsciiBindingMap: Table[uint32, string] = {
@@ -260,7 +260,7 @@ const AsciiBindingMap = {
 # Functions
 # =========
 
-proc translate*(input: tb_event): string = 
+proc translate*(input: tb_event): string =
   if input.ch in AsciiBindingMap:
     return AsciiBindingMap[input.ch]
   elif int(input.key) in BindingMap:

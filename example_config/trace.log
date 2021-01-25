@@ -1,0 +1,44 @@
+INFO [necromancy.lua:47] Parsing command line arguments...
+INFO [necromancy.lua:50] Parsing configuration file...
+INFO [necromancy.lua:55] Initializing GUI...
+INFO [application.lua:43] <application: necromancy>: init ..
+INFO [/home/linuxbrew/.linuxbrew/share/lua/5.3/ltui/view.lua:442] <panel(necromancy) [0, 0, 105, 29]>: mark as resize
+INFO [application.lua:49] <application: necromancy>: init ok
+INFO [/home/linuxbrew/.linuxbrew/share/lua/5.3/ltui/view.lua:442] <panel(window.body) [1, 1, 104, 28]>: mark as resize
+INFO [/home/linuxbrew/.linuxbrew/share/lua/5.3/ltui/view.lua:442] <view(window.shadow) [2, 1, 103, 27]>: mark as resize
+INFO [/home/linuxbrew/.linuxbrew/share/lua/5.3/ltui/view.lua:442] <panel(window.frame) [0, 0, 103, 27]>: mark as resize
+INFO [/home/linuxbrew/.linuxbrew/share/lua/5.3/ltui/view.lua:442] <view(window.border) [0, 0, 101, 26]>: mark as resize
+INFO [/home/linuxbrew/.linuxbrew/share/lua/5.3/ltui/view.lua:442] <view(window.title) [0, 0, 11, 1]>: mark as resize
+INFO [/home/linuxbrew/.linuxbrew/share/lua/5.3/ltui/view.lua:442] <panel(window.panel) [0, 0, 101, 26]>: mark as resize
+INFO [/home/linuxbrew/.linuxbrew/share/lua/5.3/ltui/view.lua:442] <panel(menubar) [0, 0, 105, 1]>: mark as resize
+INFO [/home/linuxbrew/.linuxbrew/share/lua/5.3/ltui/view.lua:442] <view(menubar.title) [0, 0, 105, 1]>: mark as resize
+INFO [/home/linuxbrew/.linuxbrew/share/lua/5.3/ltui/view.lua:442] <panel(desktop) [0, 1, 105, 28]>: mark as resize
+INFO [/home/linuxbrew/.linuxbrew/share/lua/5.3/ltui/view.lua:442] <panel(statusbar) [0, 28, 105, 29]>: mark as resize
+INFO [/home/linuxbrew/.linuxbrew/share/lua/5.3/ltui/view.lua:442] <view(statusbar.info) [0, 0, 105, 1]>: mark as resize
+INFO [/home/linuxbrew/.linuxbrew/share/lua/5.3/ltui/view.lua:227] <panel(necromancy) [0, 0, 105, 29]>: resize ..
+INFO [/home/linuxbrew/.linuxbrew/share/lua/5.3/ltui/view.lua:227] <panel(window.body) [1, 1, 104, 28]>: resize ..
+INFO [/home/linuxbrew/.linuxbrew/share/lua/5.3/ltui/view.lua:227] <view(window.shadow) [2, 1, 103, 27]>: resize ..
+INFO [/home/linuxbrew/.linuxbrew/share/lua/5.3/ltui/view.lua:227] <panel(window.frame) [0, 0, 101, 26]>: resize ..
+INFO [/home/linuxbrew/.linuxbrew/share/lua/5.3/ltui/view.lua:227] <view(window.border) [0, 0, 101, 26]>: resize ..
+INFO [/home/linuxbrew/.linuxbrew/share/lua/5.3/ltui/view.lua:227] <view(window.title) [45, 0, 56, 1]>: resize ..
+INFO [/home/linuxbrew/.linuxbrew/share/lua/5.3/ltui/view.lua:227] <panel(window.panel) [1, 1, 100, 25]>: resize ..
+INFO [/home/linuxbrew/.linuxbrew/share/lua/5.3/ltui/view.lua:184] <panel(necromancy) [0, 0, 105, 29]>: draw (transparent: nil) ..
+INFO [/home/linuxbrew/.linuxbrew/share/lua/5.3/ltui/view.lua:184] <panel(window.body) [1, 1, 104, 28]>: draw (transparent: nil) ..
+INFO [/home/linuxbrew/.linuxbrew/share/lua/5.3/ltui/view.lua:184] <view(window.shadow) [2, 1, 103, 27]>: draw (transparent: nil) ..
+INFO [/home/linuxbrew/.linuxbrew/share/lua/5.3/ltui/view.lua:184] <panel(window.frame) [0, 0, 101, 26]>: draw (transparent: nil) ..
+INFO [/home/linuxbrew/.linuxbrew/share/lua/5.3/ltui/view.lua:184] <view(window.border) [0, 0, 101, 26]>: draw (transparent: true) ..
+INFO [/home/linuxbrew/.linuxbrew/share/lua/5.3/ltui/view.lua:184] <view(window.title) [45, 0, 56, 1]>: draw (transparent: nil) ..
+INFO [/home/linuxbrew/.linuxbrew/share/lua/5.3/ltui/view.lua:184] <panel(window.panel) [1, 1, 100, 25]>: draw (transparent: nil) ..
+INFO [/home/linuxbrew/.linuxbrew/share/lua/5.3/ltui/view.lua:215] <view(window.shadow) [2, 1, 103, 27]>: refresh to window.body(2, 1, 103, 27) ..
+INFO [/home/linuxbrew/.linuxbrew/share/lua/5.3/ltui/view.lua:215] <view(window.border) [0, 0, 101, 26]>: refresh to window.frame(0, 0, 101, 26) ..
+INFO [/home/linuxbrew/.linuxbrew/share/lua/5.3/ltui/view.lua:215] <view(window.title) [45, 0, 56, 1]>: refresh to window.frame(45, 0, 56, 1) ..
+INFO [/home/linuxbrew/.linuxbrew/share/lua/5.3/ltui/view.lua:215] <panel(window.panel) [1, 1, 100, 25]>: refresh to window.frame(1, 1, 100, 25) ..
+INFO [/home/linuxbrew/.linuxbrew/share/lua/5.3/ltui/view.lua:215] <panel(window.frame) [0, 0, 101, 26]>: refresh to window.body(0, 0, 101, 26) ..
+INFO [/home/linuxbrew/.linuxbrew/share/lua/5.3/ltui/view.lua:215] <panel(window.body) [1, 1, 104, 28]>: refresh to necromancy(1, 1, 104, 28) ..
+INFO [/home/linuxbrew/.linuxbrew/share/lua/5.3/ltui/program.lua:273] <panel(necromancy) [0, 0, 105, 29]>: refresh ..
+INFO [/home/linuxbrew/.linuxbrew/share/lua/5.3/ltui/program.lua:479] cursor(<panel(window.panel) [1, 1, 100, 25]>): (0, 0), 0
+INFO [/home/linuxbrew/.linuxbrew/share/lua/5.3/ltui/event.lua:61] event(2): ..
+DEBUG [configuration.lua:61] <BUTTON1_CLICKED> -> 
+INFO [/home/linuxbrew/.linuxbrew/share/lua/5.3/ltui/event.lua:57] event(key): CtrlQ 17.0 ..
+DEBUG [configuration.lua:61] <CtrlQ> -> quit
+WARN [action.lua:64] quitting!

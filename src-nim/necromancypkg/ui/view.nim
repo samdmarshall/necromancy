@@ -5,15 +5,18 @@
 import os
 import sequtils
 
+#import necromancypkg/ui/theme
+#import necromancypkg/models/[ types, fileitem, configuration ]
+#import necromancypkg/events/constants
 import "theme.nim"
-
-import termbox
 
 import "../models/types.nim"
 import "../models/fileitem.nim"
 import "../models/configuration.nim"
 
 import "../events/constants.nim"
+
+import termbox
 
 # =========
 # Constants
@@ -120,11 +123,11 @@ proc createMainWindow*(): Window =
   let command_prompt_origin = Point(x: 0, y: (height() - 1))
   var command_prompt = createInputViewAtPointWithSize(command_prompt_origin, command_prompt_rect)
   command_prompt.name = ViewName_CommandEntry
-    
+
   return Window(views: @[main, top_bar, directory_path, directory_contents, selector,  command_prompt, bottom_bar])
 
 proc createDebugView*(): View =
-  let size = Size(width: width(), height: 5)
+  let size = Size(width: width(), height: 20)
   let origin = Point(x: 0, y: (height() - size.height))
   var text_view = createTextViewAtPointWithSize(origin, size)
   text_view.name = ViewName_DebugConsole
@@ -147,7 +150,7 @@ proc getIndexForViewWithName*(screen: Window, name: string): int =
   if not found_view:
     return -1
   return index
-  
+
 proc getDebugViewIndex*(screen: Window): int =
   return screen.getIndexForViewWithName(ViewName_DebugConsole)
 

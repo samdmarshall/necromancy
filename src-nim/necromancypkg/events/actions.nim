@@ -24,7 +24,7 @@ import "../ui/itemselector.nim"
 # Functions
 # =========
 
-proc navigateUp*(screen: Window): void = 
+proc navigateUp*(screen: Window): void =
   let selector_index = screen.getIndexForViewWithName(ViewName_ItemSelector)
   var selector_view = screen.views[selector_index]
   if selector_view.contents.selector.index > 0:
@@ -34,7 +34,7 @@ proc navigateUp*(screen: Window): void =
     screen.views[browser_index] = browser.updateCursor(selector_view.contents.selector.index)
   screen.views[selector_index] = selector_view
 
-proc navigateDown*(screen: Window): void = 
+proc navigateDown*(screen: Window): void =
   let selector_index = screen.getIndexForViewWithName(ViewName_ItemSelector)
   var selector_view = screen.views[selector_index]
   if selector_view.contents.selector.index < selector_view.contents.selector.count:
@@ -44,11 +44,11 @@ proc navigateDown*(screen: Window): void =
     screen.views[browser_index] = browser.updateCursor(selector_view.contents.selector.index)
   screen.views[selector_index] = selector_view
 
-proc navigateIn*(screen: Window, settings: Configuration): void = 
+proc navigateIn*(screen: Window, settings: Configuration): void =
   let browser_index = screen.getIndexForViewWithName(ViewName_DirectoryPath)
   var browser = screen.views[browser_index]
 
-proc navigateOut*(screen: Window, settings: Configuration): void = 
+proc navigateOut*(screen: Window, settings: Configuration): void =
   let browser_index = screen.getIndexForViewWithName(ViewName_DirectoryPath)
   var browser = screen.views[browser_index]
   let active_path = browser.getActivePath()
@@ -59,7 +59,7 @@ proc navigateOut*(screen: Window, settings: Configuration): void =
 
 proc reloadContents*(screen: Window, settings: Configuration, directory: string): Window =
   let current_directory = directory.expandTilde()
-  
+
   let directory_path_index = screen.getIndexForViewWithName(ViewName_DirectoryPath)
   var directory_path_view = screen.views[directory_path_index]
   directory_path_view = directory_path_view.setText(current_directory)
@@ -75,5 +75,5 @@ proc reloadContents*(screen: Window, settings: Configuration, directory: string)
   screen.views[selector_index].name = ViewName_ItemSelector
 
   screen.draw()
-  
+
   return screen

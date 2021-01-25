@@ -6,10 +6,10 @@ import os
 import parsecfg
 import strutils
 
-import termbox
-
 import "../models/types.nim"
 import "../models/configuration.nim"
+
+import termbox
 
 # =========
 # Constants
@@ -30,7 +30,7 @@ const
 # Functions
 # =========
 
-proc parseStringAsColorValue(value: string): uint16 = 
+proc parseStringAsColorValue(value: string): uint16 =
   case value.toLowerAscii()
   of Color_Default:
     return TB_DEFAULT
@@ -84,7 +84,7 @@ proc parseColorValueFromSection(settings: Config, name: string): ColorValue =
   let normal_string = settings.getSectionValue(name, "normal")
   let bold_string = settings.getSectionValue(name, "bold")
   let underline_string = settings.getSectionValue(name, "underline")
-  
+
   let normal_color = parseStringAsColorValue(normal_string)
   let bold_color = parseStringAsColorValue(bold_string)
   let underline_color = parseStringAsColorValue(underline_string)
@@ -96,7 +96,6 @@ proc loadThemeWithName*(prefs_dir: string, theme_name: string): ColorTheme =
   let theme_file_path = themes_directory.joinPath(theme_name)
   let color_config: Config = loadConfig(theme_file_path)
 
-  
   let default = color_config.parseColorValueFromSection(Color_Default)
   let black = color_config.parseColorValueFromSection(Color_Black)
   let red = color_config.parseColorValueFromSection(Color_Red)
@@ -106,7 +105,7 @@ proc loadThemeWithName*(prefs_dir: string, theme_name: string): ColorTheme =
   let magenta = color_config.parseColorValueFromSection(Color_Magenta)
   let cyan = color_config.parseColorValueFromSection(Color_Cyan)
   let white = color_config.parseColorValueFromSection(Color_White)
-  
+
   let color_mapping = ColorMap(default: default, black: black, red: red, green: green, yellow: yellow, blue: blue, magenta: magenta, cyan: cyan, white: white)
 
   var theme = ColorTheme(map: color_mapping)
@@ -114,5 +113,5 @@ proc loadThemeWithName*(prefs_dir: string, theme_name: string): ColorTheme =
   theme.directory = color_config.mapValueOfKeyToColorRef("directory", color_mapping)
   theme.executable = color_config.mapValueOfKeyToColorRef("executable", color_mapping)
   theme.symlink = color_config.mapValueOfKeyToColorRef("symlink", color_mapping)
-  
+
   return theme

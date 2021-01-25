@@ -5,14 +5,11 @@
 import math
 
 import "view.nim"
-
 import "../logger.nim"
+import "../models/types.nim"
+import "../events/constants.nim"
 
 import termbox
-
-import "../models/types.nim"
-
-import "../events/constants.nim"
 
 # =========
 # Functions

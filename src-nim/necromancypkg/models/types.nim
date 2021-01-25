@@ -52,11 +52,11 @@ type
     cursor*: string
     count*: cint
     index*: cint
-  
+
   InputView* = object
     prompt*: string
     written*: string
-    
+
   ViewContents* = object
     text*: TextView
     label*: LabelView

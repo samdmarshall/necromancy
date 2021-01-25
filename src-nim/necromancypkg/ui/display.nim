@@ -4,9 +4,9 @@
 
 import posix
 
-import termbox
-
 import "../models/types.nim"
+
+import termbox
 
 # =========
 # Functions
@@ -34,7 +34,7 @@ proc suspendDisplay*(): void =
 
 proc draw*(screen: Window): void =
   ## Call this method to re-draw the screen contents, it will iterate over
-  ## all of the views in the screen (from low to high) drawing the contents 
+  ## all of the views in the screen (from low to high) drawing the contents
   ## of each sequentially.
   clear()
   for view in screen.views:

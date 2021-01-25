@@ -4,11 +4,11 @@
 
 import "view.nim"
 
-import termbox
-
 import "../models/types.nim"
 import "../models/fileitem.nim"
 import "../models/configuration.nim"
+
+import termbox
 
 # =========
 # Functions

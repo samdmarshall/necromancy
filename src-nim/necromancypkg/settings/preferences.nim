@@ -29,20 +29,20 @@ proc interpretAsBoolean(value :string): bool =
     return false
   else:
     raise newException(OSError, "invalid boolean value parsed in config file!")
-    
 
-proc loadUserConfiguration*(path: string): Configuration = 
+
+proc loadUserConfiguration*(path: string): Configuration =
   Logger(Debug, "Loading preference data...")
-  if not os.fileExists(path):
+  if not fileExists(path):
     Logger(Fatal, "Unable to load preference data, aborting!")
   let config_data: Config = loadConfig(path)
-  
+
   var bindings = newSeq[UserKeyBinding]()
   for action_mapping in CommandMap.keys():
     let mapping: string = config_data.getSectionValue("keys", action_mapping)
     bindings.add(UserKeyBinding(key: mapping, action: action_mapping))
     Logger(Info, "Mapping '" & mapping & "' to '" & action_mapping & "'")
-  
+
   let mouse_value = config_data.getSectionValue("general", "mouse")
   if mouse_value.interpretAsBoolean():
     bindings.add(UserKeyBinding(key: "<scroll-up>", action: Action_Up))

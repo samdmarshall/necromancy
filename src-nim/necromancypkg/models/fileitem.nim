@@ -53,12 +53,12 @@ proc getDecorator(file: FileItem): string =
   of FileType.Symlink:
     var expanded_path: string
     try:
-      expanded_path = os.expandSymlink(file.data.path)
+      expanded_path = expandSymlink(file.data.path)
     except:
       expanded_path = "???"
     return " -> " & expanded_path
 
-proc getItemColor*(file: FileItem, settings: Configuration): uint16 = 
+proc getItemColor*(file: FileItem, settings: Configuration): uint16 =
   case file.resolveFileType()
   of FileType.File:
     return settings.colors.file.normal
@@ -69,12 +69,12 @@ proc getItemColor*(file: FileItem, settings: Configuration): uint16 =
   of FileType.Symlink:
     return settings.colors.symlink.normal
 
-proc getName*(file: FileItem): string = 
+proc getName*(file: FileItem): string =
   return file.data.path & getDecorator(file)
 
-proc populate*(directory: string, ignored: seq[string]): seq[FileItem] = 
+proc populate*(directory: string, ignored: seq[string]): seq[FileItem] =
   var items = newSeq[FileItem]()
-  for item in os.walkDir(directory, relative = true):
+  for item in walkDir(directory, relative = true):
     if item.path notin ignored:
       let fi = FileItem(parent: directory, data: item)
       items.add(fi)

@@ -4,15 +4,17 @@
 
 import "view.nim"
 
-import termbox
-
+import "../logger.nim"
 import "../models/types.nim"
+
+import termbox
 
 # =========
 # Functions
 # =========
 
 template writeToDebugConsole*(screen: Window, message: string) =
+  Logger(Debug, message)
   var debug_index = screen.getDebugViewIndex()
   if debug_index != -1:
     let debug_view = screen.views[debug_index]

@@ -4,9 +4,9 @@
 
 import "view.nim"
 
-import termbox
-
 import "../models/types.nim"
+
+import termbox
 
 # =========
 # Functions
