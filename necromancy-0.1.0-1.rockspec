@@ -15,7 +15,11 @@ dependencies = {
    "ltui >= 2.5",
    "argparse >= 0.7.1",
    "lua-path >= 0.3.1",
-   "lua-struct >= 1.1",
+   "luastruct >= 1.1",
+   "eventemitter >= 0.1.1",
+   "split >= 3.2.1",
+   "lua-filesize >= 0.1.1",
+   "luafilesystem >= 1.8.0",
 }
 build = {
    type = "builtin",
@@ -29,6 +33,9 @@ build = {
       ["necromancy.configuration"] = "src/necromancy/configuration.lua",
       ["necromancy.theme"] = "src/necromancy/theme.lua",
       ["necromancy.utilities"] = "src/necromancy/utilities.lua",
+      ["necromancy.models.color"] = "src/necromancy/models/color.lua",
+      ["necromancy.models.colormap"] = "src/necromancy/models/colormap.lua",
+      ["necromancy.ui.itembrowser"] = "src/necromancy/ui/itembrowser.lua",
       ["necromancy.vendor.ini"] = "src/necromancy/vendor/ini.lua"
    }
 }

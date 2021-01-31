@@ -1,9 +1,30 @@
-- repo: git://github.com/pre-commit/pre-commit-hooks
-  sha: v0.7.1
-  hooks:
-    - id: trailing-whitespace
-    - id: end-of-file-fixer
-    - id: check-merge-conflict
-    - id: check-case-conflict
-    - id: check-json
-    - id: check-xml
+repos:
+  - repo: git://github.com/pre-commit/pre-commit-hooks
+    rev: v3.4.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-merge-conflict
+      - id: check-case-conflict
+      - id: check-json
+      - id: check-xml
+  - repo: git://github.com/macisamuele/language-formatters-pre-commit-hooks
+    rev: v2.0.0
+    hooks:
+      - id: pretty-format-ini
+  # - repo: git://github.com/myint/rstcheck
+  #   rev: v3.3.1
+  #   hooks:
+  #     - id: rstcheck
+  # - repo: https://gitlab.com/pablodiehl/pre-commit-lua-formatter
+  #   rev: v1.0.0
+  #   hooks:
+  #     - id: lua-formatter
+  - repo: git://github.com/Calinou/pre-commit-luacheck
+    rev: v1.0.0
+    hooks:
+      - id: luacheck
+#  - repo: git://github.com/juancarlospaco/pre-commit-nim
+#    hooks:
+#      - id: nimble-check
+#      - id: nim-check
