@@ -35,6 +35,7 @@ build = {
       ["necromancy.utilities"] = "src/necromancy/utilities.lua",
       ["necromancy.models.color"] = "src/necromancy/models/color.lua",
       ["necromancy.models.colormap"] = "src/necromancy/models/colormap.lua",
+      ["necromancy.models.permissions"] = "src/necromancy/models/permissions.lua",
       ["necromancy.ui.itembrowser"] = "src/necromancy/ui/itembrowser.lua",
       ["necromancy.vendor.ini"] = "src/necromancy/vendor/ini.lua"
    }

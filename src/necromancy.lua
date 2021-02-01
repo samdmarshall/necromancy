@@ -16,6 +16,7 @@ local events = require("necromancy.events")
 local actionhandler = require("necromancy.action")
 local utilities = require("necromancy.utilities")
 local itembrowser = require("necromancy.ui.itembrowser")
+local permissions = require("necromancy.models.permissions")
 
 --
 local AppName = "necromancy"
@@ -76,9 +77,24 @@ function necromancy:path_update(new_path)
     local items = {}
 
     for name in lfs.dir(self:cwd()) do
-      if name ~= "." and name ~= ".." then
+      if name ~= "." then
         local name_path = path.join(self:cwd(), name)
         local attrs = lfs.symlinkattributes(name_path)
+        if attrs["mode"] == "directory" then
+          name = name.."/"
+        elseif attrs["mode"] == "link" then
+          local target = attrs["target"]
+          if not path.isfullpath(target) then
+            target = path.normalize(path.join("./", target))
+          end
+          name = name.." -> "..target
+        else
+          -- check for executable vs regular file
+          local item = permissions.parse(attrs["permissions"])
+          if permissions.is_executable(item) then
+            name = name.."*"
+          end
+        end
         table.insert(items, name)
       end
     end

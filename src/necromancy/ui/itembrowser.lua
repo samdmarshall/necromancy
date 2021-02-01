@@ -7,7 +7,7 @@ local itembrowser = itembrowser or ltui.choicebox() -- luacheck: globals itembro
 -- load a item with value
 function itembrowser:_load_item(value, index, selected)
   -- init text
-  local text = (selected and " " or " ") .. tostring(value)
+  local text = (selected and " " or " ") .. tostring(value) .. " "
 
   -- init a value item view
   local item = ltui.button:new("choicebox.value." .. index,
@@ -31,7 +31,7 @@ function itembrowser:_do_select()
     local text = v:text()
     if text and text:startswith(" ") then
       local t = v:extra("value")
-      v:text_set(" " .. tostring(t))
+      -- v:text_set(" " .. tostring(t) .. " ")
     end
   end
 
@@ -43,8 +43,16 @@ function itembrowser:_do_select()
   local value = item:extra("value")
   self:action_on(ltui.action.ac_on_selected, index, value)
 
+  -- if value == ".." then
+  --   -- move up directory
+  -- elseif value.endswith("/") then
+  --   -- move down directory
+  -- else
+  --   -- open item
+  -- end
+
   -- update text
-  item:text_set(" " .. tostring(value))
+  -- item:text_set(" " .. tostring(value) .. " ")
 end
 
 return itembrowser
